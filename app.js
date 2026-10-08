@@ -1,174 +1,255 @@
-const NAV = ["all","popular","starters","burgers","grill","steaks","seafood","sides","desserts","cocktails","zero","soft"];
+const CHAPTERS = ["starters","burgers","grill","steaks","seafood","sides","desserts","cocktails","zero","soft"];
+const WIFI = { net: "ORZA-GUEST", pass: "stol1824" };
+const SOCIAL = {
+  google: "https://www.google.com/search?q=ORZA+Warszawa+restauracja+opinie",
+  instagram: "https://www.instagram.com/"
+};
 
-const state = { locale: "pl", cat: "all", q: "", reel: null, paused: false, fav: {} };
+const state = { locale: "pl", view: "table", reel: null, idx: 0, moving: false };
 
 const t = (loc) => (loc && (loc[state.locale] || loc.en)) || "";
+const ui = () => MENU.ui[state.locale];
 const money = (n) => new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN", maximumFractionDigits: 0 }).format(n);
 const media = (p) => (p || "").replace(/^\//, "");
 
 function products() {
-  return MENU.products
-    .filter((p) => p.available)
-    .sort((a, b) => a.sortOrder - b.sortOrder);
+  return MENU.products.filter((p) => p.available).sort((a, b) => a.sortOrder - b.sortOrder);
+}
+function byCat(cat) {
+  return products().filter((p) => p.category === cat);
+}
+function reelList() {
+  return CHAPTERS.flatMap(byCat);
 }
 
-function visible() {
-  const q = state.q.trim().toLowerCase();
-  return products().filter((p) => {
-    const hay = `${t(p.name)} ${t(p.description)}`.toLowerCase();
-    if (q && !hay.includes(q)) return false;
-    if (state.cat === "all") return true;
-    if (state.cat === "popular") return p.featured;
-    return p.category === state.cat;
-  });
-}
-
-function render() {
-  const ui = MENU.ui[state.locale];
-  document.getElementById("tagline").textContent = t(MENU.restaurant.tagline);
-  document.getElementById("search").placeholder = ui.search;
-  document.getElementById("foot").textContent = ui.demo;
-
-  document.getElementById("langs").innerHTML = ["pl","en","uk"].map((l) =>
+function langsHtml() {
+  return ["pl","en","uk"].map((l) =>
     `<button type="button" data-l="${l}" class="${state.locale===l?"on":""}">${l.toUpperCase()}</button>`
   ).join("");
-
-  document.getElementById("cats").innerHTML = NAV.map((id) =>
-    `<button type="button" data-cat="${id}" class="${state.cat===id?"on":""}">${t(MENU.categoryNames[id])}</button>`
-  ).join("");
-
-  const hero = products().find((p) => p.id === "ember-burger") || products()[0];
-  document.getElementById("hero").innerHTML = `
-    <div class="hero-media">
-      ${hero.video
-        ? `<video src="${media(hero.video)}" poster="${media(hero.poster)}" autoplay muted loop playsinline></video>`
-        : `<img src="${media(hero.poster)}" alt="">`}
-    </div>
-    <div class="hero-copy">
-      <p class="kicker">${t(MENU.restaurant.city)}</p>
-      <h1>${t(hero.name)}</h1>
-      <p>${t(hero.description)}</p>
-      <div class="row">
-        <span class="price">${money(hero.price)}</span>
-        <button class="btn" data-open="${hero.id}">${ui.watchDish}</button>
-      </div>
-    </div>`;
-
-  const list = visible();
-  document.getElementById("grid").innerHTML = list.length
-    ? list.map((p) => `
-      <button class="card" type="button" data-open="${p.id}">
-        <div class="pic">
-          <img src="${media(p.poster)}" alt="${t(p.name)}" loading="lazy">
-          <span class="spin">▶ Spin</span>
-        </div>
-        <div class="meta">
-          <p class="cat">${t(MENU.categoryNames[p.category])}</p>
-          <h3>${t(p.name)}</h3>
-          <p class="desc">${t(p.description)}</p>
-          <span class="price">${money(p.price)}</span>
-        </div>
-      </button>`).join("")
-    : `<p class="foot">${ui.empty}</p>`;
-
-  renderReel();
 }
 
-function renderReel() {
-  const el = document.getElementById("reel");
-  const list = visible().length ? visible() : products();
-  if (state.reel == null) { el.classList.add("hidden"); el.innerHTML = ""; return; }
-  const i = Math.max(0, list.findIndex((p) => p.id === state.reel));
-  const p = list[i] || list[0];
-  const next = list[(i + 1) % list.length];
-  const ui = MENU.ui[state.locale];
+function renderTable() {
+  document.getElementById("place").textContent = `${t(MENU.restaurant.city)} · ${t(MENU.restaurant.tagline)}`;
+  document.getElementById("langs").innerHTML = langsHtml();
+  document.getElementById("tableNote").textContent = ui().demo;
+  const items = [
+    ["wifi", ui().wifi, ui().wifiHint],
+    ["waiter", ui().waiter, ui().callWaiter],
+    ["menu", ui().menu, ui().menuHint],
+    ["socials", ui().socials, ui().socialsHint]
+  ];
+  document.getElementById("tableNav").innerHTML = items.map(([id, title, hint], i) => `
+    <button class="opt" type="button" data-opt="${id}">
+      <span class="n">0${i+1}</span>
+      <span><h2>${title}</h2><p>${hint}</p></span>
+      <span class="arr">→</span>
+    </button>`).join("");
+}
+
+function renderMenu() {
+  document.getElementById("langs2").innerHTML = langsHtml();
+  document.getElementById("backTable").textContent = "← " + ui().back;
+  document.getElementById("chapters").innerHTML = CHAPTERS.map((id) =>
+    `<a href="#ch-${id}" data-ch="${id}">${t(MENU.categoryNames[id])}</a>`
+  ).join("");
+  document.getElementById("carta").innerHTML = CHAPTERS.map((id) => {
+    const list = byCat(id);
+    if (!list.length) return "";
+    return `<section class="chapter" id="ch-${id}">
+      <h3>${t(MENU.categoryNames[id])}</h3>
+      ${list.map((p) => `
+        <button class="row" type="button" data-open="${p.id}">
+          <span class="plate"><img src="${media(p.poster)}" alt=""></span>
+          <span>
+            <h4>${t(p.name)}</h4>
+            <p class="desc">${t(p.description)}</p>
+          </span>
+          <span class="price">${money(p.price)}</span>
+        </button>`).join("")}
+    </section>`;
+  }).join("");
+}
+
+function showView(name) {
+  state.view = name;
+  document.getElementById("table").classList.toggle("hidden", name !== "table");
+  document.getElementById("menu").classList.toggle("hidden", name !== "menu");
+}
+
+function openSheet(kind) {
+  const el = document.getElementById("sheet");
+  let inner = "";
+  if (kind === "wifi") {
+    inner = `<div class="card">
+      <h2>${ui().wifi}</h2>
+      <div class="kv"><span>${ui().wifiNet}</span><b>${WIFI.net}</b></div>
+      <div class="kv"><span>${ui().wifiPass}</span><b>${WIFI.pass}</b></div>
+      <p class="tiny">${ui().wifiHint}</p>
+      <button class="close" type="button" data-sheet-close>${ui().close}</button>
+    </div>`;
+  } else if (kind === "socials") {
+    inner = `<div class="card">
+      <h2>${ui().socials}</h2>
+      <a href="${SOCIAL.google}" target="_blank" rel="noopener">${ui().googleReview}</a>
+      <a href="${SOCIAL.instagram}" target="_blank" rel="noopener">${ui().instagram}</a>
+      <button class="close" type="button" data-sheet-close>${ui().close}</button>
+    </div>`;
+  }
+  el.innerHTML = inner;
   el.classList.remove("hidden");
-  el.innerHTML = `
+}
+
+function toast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.remove("hidden");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.add("hidden"), 2600);
+}
+
+function storyHTML(p, cls) {
+  return `<article class="story ${cls}" data-id="${p.id}">
     ${p.video
-      ? `<video id="reelVid" src="${media(p.video)}" poster="${media(p.poster)}" autoplay muted loop playsinline></video>`
+      ? `<video src="${media(p.video)}" poster="${media(p.poster)}" autoplay muted loop playsinline></video>`
       : `<img src="${media(p.poster)}" alt="">`}
-    ${next?.video ? `<link rel="preload" as="video" href="${media(next.video)}">` : ""}
     <div class="shade"></div>
-    <div class="brand">ORZA</div>
-    <button class="x" type="button" data-close>${ui.close}</button>
+    <div class="bars">${reelList().map((_, i) => `<i class="${i < state.idx ? "done" : i===state.idx ? "on" : ""}"><b></b></i>`).join("")}</div>
+    <div class="top">
+      <span class="mark sm">ORZA</span>
+      <button class="x" type="button" data-close>${ui().close}</button>
+    </div>
     <div class="info">
-      <p class="kicker">${t(MENU.categoryNames[p.category])}</p>
+      <p class="k">${t(MENU.categoryNames[p.category])}</p>
       <h2>${t(p.name)}</h2>
-      <p class="sub">${state.locale === "pl" ? p.name.en : p.name.pl}</p>
       <p>${t(p.description)}</p>
       <p class="price">${money(p.price)}</p>
-      <p class="tiny">${ui.ingredients}: ${t(p.ingredients)}</p>
-      <p class="tiny">${ui.allergens}: ${t(p.allergens)}</p>
+      <p class="tiny">${ui().ingredients}: ${t(p.ingredients)}</p>
     </div>
-    <div class="side">
-      <button type="button" data-fav>${state.fav[p.id] ? "♥" : "♡"}</button>
-      <button type="button" data-pause>${state.paused ? "▶" : "❚❚"}</button>
-      <button type="button" data-share>SH</button>
-    </div>`;
-  const v = document.getElementById("reelVid");
-  if (v) {
+  </article>`;
+}
+
+function openReel(id) {
+  const list = reelList();
+  const i = Math.max(0, list.findIndex((p) => p.id === id));
+  state.idx = i;
+  state.reel = list[i].id;
+  paintStories(true);
+}
+
+function paintStories(reset) {
+  const list = reelList();
+  const el = document.getElementById("stories");
+  const cur = list[state.idx];
+  const nxt = list[(state.idx + 1) % list.length];
+  const prv = list[(state.idx - 1 + list.length) % list.length];
+  el.classList.remove("hidden");
+  el.innerHTML = storyHTML(prv, "prv") + storyHTML(cur, "cur") + storyHTML(nxt, "nxt");
+  el.querySelectorAll("video").forEach((v) => {
     v.addEventListener("canplay", () => v.play().catch(() => {}));
-    if (state.paused) v.pause();
-  }
+  });
+  if (reset) el.querySelector(".cur video")?.play().catch(() => {});
 }
 
 function move(dir) {
-  const list = visible().length ? visible() : products();
-  const i = Math.max(0, list.findIndex((p) => p.id === state.reel));
-  state.reel = list[(i + dir + list.length) % list.length].id;
-  state.paused = false;
-  renderReel();
+  if (state.moving || state.reel == null) return;
+  const list = reelList();
+  const el = document.getElementById("stories");
+  const cur = el.querySelector(".cur");
+  const nxt = el.querySelector(".nxt");
+  const prv = el.querySelector(".prv");
+  state.moving = true;
+  if (dir > 0) {
+    cur.style.transform = "translate3d(0,-100%,0)";
+    nxt.style.transform = "translate3d(0,0,0)";
+  } else {
+    cur.style.transform = "translate3d(0,100%,0)";
+    prv.style.transform = "translate3d(0,0,0)";
+  }
+  let finished = false;
+  const done = () => {
+    if (finished) return;
+    finished = true;
+    state.idx = (state.idx + dir + list.length) % list.length;
+    state.reel = list[state.idx].id;
+    state.moving = false;
+    paintStories(false);
+  };
+  cur.addEventListener("transitionend", done, { once: true });
+  setTimeout(done, 680);
+}
+
+function closeReel() {
+  state.reel = null;
+  document.getElementById("stories").classList.add("hidden");
+  document.getElementById("stories").innerHTML = "";
+}
+
+function render() {
+  renderTable();
+  renderMenu();
+  if (state.view === "menu") showView("menu");
+  else showView("table");
 }
 
 document.addEventListener("click", (e) => {
   const l = e.target.closest("[data-l]");
   if (l) { state.locale = l.dataset.l; render(); return; }
-  const c = e.target.closest("[data-cat]");
-  if (c) { state.cat = c.dataset.cat; render(); return; }
+  const opt = e.target.closest("[data-opt]");
+  if (opt) {
+    const k = opt.dataset.opt;
+    if (k === "menu") showView("menu");
+    else if (k === "wifi" || k === "socials") openSheet(k);
+    else if (k === "waiter") toast(ui().waiterDone);
+    return;
+  }
+  if (e.target.closest("[data-home]")) { showView("table"); return; }
+  if (e.target.closest("[data-sheet-close]") || e.target.id === "sheet") {
+    document.getElementById("sheet").classList.add("hidden");
+    return;
+  }
   const o = e.target.closest("[data-open]");
-  if (o) { state.reel = o.dataset.open; state.paused = false; renderReel(); return; }
-  if (e.target.closest("[data-close]")) { state.reel = null; renderReel(); return; }
-  if (e.target.closest("[data-fav]") && state.reel) {
-    state.fav[state.reel] = !state.fav[state.reel]; renderReel(); return;
-  }
-  if (e.target.closest("[data-pause]")) {
-    state.paused = !state.paused;
-    const v = document.getElementById("reelVid");
-    if (v) state.paused ? v.pause() : v.play().catch(() => {});
-    renderReel(); return;
-  }
-  if (e.target.closest("[data-share]")) {
-    navigator.clipboard?.writeText(location.href); return;
-  }
+  if (o) { openReel(o.dataset.open); return; }
+  if (e.target.closest("[data-close]")) { closeReel(); return; }
 });
 
-document.getElementById("search").addEventListener("input", (e) => {
-  state.q = e.target.value; render();
-});
+const carta = document.getElementById("carta");
+carta.addEventListener("scroll", () => {}, { passive: true });
+window.addEventListener("scroll", () => {
+  const links = [...document.querySelectorAll("[data-ch]")];
+  let current = CHAPTERS[0];
+  for (const id of CHAPTERS) {
+    const sec = document.getElementById("ch-" + id);
+    if (sec && sec.getBoundingClientRect().top < 140) current = id;
+  }
+  links.forEach((a) => a.classList.toggle("on", a.dataset.ch === current));
+}, { passive: true });
 
 let touchY = null;
-document.getElementById("reel").addEventListener("touchstart", (e) => { touchY = e.touches[0].clientY; }, { passive: true });
-document.getElementById("reel").addEventListener("touchend", (e) => {
+document.getElementById("stories").addEventListener("touchstart", (e) => {
+  touchY = e.touches[0].clientY;
+}, { passive: true });
+document.getElementById("stories").addEventListener("touchend", (e) => {
   if (touchY == null || state.reel == null) return;
   const dy = e.changedTouches[0].clientY - touchY;
-  if (dy < -48) move(1);
-  if (dy > 48) move(-1);
+  if (dy < -56) move(1);
+  if (dy > 56) move(-1);
   touchY = null;
 });
 
 window.addEventListener("keydown", (e) => {
   if (state.reel == null) return;
-  if (e.key === "Escape") { state.reel = null; renderReel(); }
+  if (e.key === "Escape") closeReel();
   if (e.key === "ArrowDown" || e.key === "ArrowRight") move(1);
   if (e.key === "ArrowUp" || e.key === "ArrowLeft") move(-1);
 });
 let wheelLock = 0;
 window.addEventListener("wheel", (e) => {
-  if (state.reel == null || Math.abs(e.deltaY) < 40) return;
+  if (state.reel == null || Math.abs(e.deltaY) < 28) return;
   const now = Date.now();
-  if (now - wheelLock < 450) return;
+  if (now - wheelLock < 620) return;
   wheelLock = now;
   move(e.deltaY > 0 ? 1 : -1);
 }, { passive: true });
 
+if (location.hash === "#menu") state.view = "menu";
 render();
