@@ -1,7 +1,7 @@
-const CHAPTERS = ["starters","burgers","grill","steaks","seafood","sides","desserts","cocktails","zero","soft"];
-const WIFI = { net: "ORZA-GUEST", pass: "stol1824" };
+const CHAPTERS = ["starters","burgers","steaks","cocktails","desserts"];
+const WIFI = { net: "PLATELY-GUEST", pass: "plate1824" };
 const SOCIAL = {
-  google: "https://www.google.com/search?q=ORZA+Warszawa+restauracja+opinie",
+  google: "https://www.google.com/search?q=Plately+Warszawa+restauracja+opinie",
   instagram: "https://www.instagram.com/"
 };
 
@@ -59,7 +59,10 @@ function renderMenu() {
       <h3>${t(MENU.categoryNames[id])}</h3>
       ${list.map((p) => `
         <button class="row" type="button" data-open="${p.id}">
-          <span class="plate"><img src="${media(p.poster)}" alt=""></span>
+          <span class="plate-wrap">
+            <span class="plate"><img src="${media(p.poster)}" alt=""></span>
+            <span class="hint">${ui().tap}</span>
+          </span>
           <span>
             <h4>${t(p.name)}</h4>
             <p class="desc">${t(p.description)}</p>
@@ -113,17 +116,12 @@ function storyHTML(p, cls) {
       ? `<video src="${media(p.video)}" poster="${media(p.poster)}" autoplay muted loop playsinline></video>`
       : `<img src="${media(p.poster)}" alt="">`}
     <div class="shade"></div>
-    <div class="bars">${reelList().map((_, i) => `<i class="${i < state.idx ? "done" : i===state.idx ? "on" : ""}"><b></b></i>`).join("")}</div>
-    <div class="top">
-      <span class="mark sm">ORZA</span>
-      <button class="x" type="button" data-close>${ui().close}</button>
-    </div>
+    <button class="x" type="button" data-close>×</button>
     <div class="info">
       <p class="k">${t(MENU.categoryNames[p.category])}</p>
       <h2>${t(p.name)}</h2>
       <p>${t(p.description)}</p>
       <p class="price">${money(p.price)}</p>
-      <p class="tiny">${ui().ingredients}: ${t(p.ingredients)}</p>
     </div>
   </article>`;
 }
@@ -145,6 +143,7 @@ function paintStories(reset) {
   el.classList.remove("hidden");
   el.innerHTML = storyHTML(prv, "prv") + storyHTML(cur, "cur") + storyHTML(nxt, "nxt");
   el.querySelectorAll("video").forEach((v) => {
+    v.playbackRate = 0.7;
     v.addEventListener("canplay", () => v.play().catch(() => {}));
   });
   if (reset) el.querySelector(".cur video")?.play().catch(() => {});
