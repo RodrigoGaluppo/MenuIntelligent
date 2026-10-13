@@ -1,0 +1,1021 @@
+{
+  "restaurant": {
+    "id": "the-cork",
+    "name": "THE CORK",
+    "tagline": {
+      "pl": "great people. real food.",
+      "en": "great people. real food.",
+      "uk": "great people. real food."
+    },
+    "city": {
+      "pl": "Wrocław · Rzeźnicza 32/33",
+      "en": "Wrocław · Rzeźnicza 32/33",
+      "uk": "Вроцлав · Rzeźnicza 32/33"
+    },
+    "fictional": false,
+    "currency": "PLN",
+    "address": {
+      "pl": "ul. Rzeźnicza 32/33, 50-130 Wrocław",
+      "en": "Rzeźnicza 32/33, 50-130 Wrocław",
+      "uk": "вул. Rzeźnicza 32/33, Вроцлав"
+    },
+    "wifiName": "",
+    "wifiPassword": "",
+    "hours": {
+      "pl": "Pn–Pt 17–22 · Sob 14–22 · Nd 13–20",
+      "en": "Mon–Fri 17–22 · Sat 14–22 · Sun 13–20",
+      "uk": "Пн–Пт 17–22 · Сб 14–22 · Нд 13–20"
+    },
+    "phone": "+48 502 198 333"
+  },
+  "products": [
+    {
+      "id": "olive-ritual",
+      "slug": "olive-ritual",
+      "category": "ritual",
+      "name": {
+        "pl": "Rytuał oliwy",
+        "en": "Olive oil ritual",
+        "uk": "Ритуал оливкової олії"
+      },
+      "description": {
+        "pl": "Chleb domowy, oliwa Albania Gold Velagosh, dukkah pistacjowa.",
+        "en": "Homemade bread, Albania Gold Velagosh olive oil, pistachio dukkah.",
+        "uk": "Домашній хліб, олія Albania Gold Velagosh, фісташкова дукка."
+      },
+      "ingredients": {
+        "pl": "chleb, oliwa, dukkah pistacjowa, sól morska",
+        "en": "bread, olive oil, pistachio dukkah, sea salt",
+        "uk": "хліб, олія, фісташкова дукка, морська сіль"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 26,
+      "poster": "/media/posters/olive-ritual.jpg",
+      "video": "/media/videos/olive-ritual.mp4",
+      "videoStatus": "ready",
+      "featured": true,
+      "available": true,
+      "sortOrder": 1,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "150 g",
+      "referenceImages": [
+        "/media/posters/olive-ritual.jpg"
+      ]
+    },
+    {
+      "id": "matjas",
+      "slug": "matjas",
+      "category": "starters",
+      "name": {
+        "pl": "Matjas",
+        "en": "Matias herring",
+        "uk": "Матьяс"
+      },
+      "description": {
+        "pl": "Grzanka żytnia, twaróg wędzony, dynia, burak, cebula czerwona, oliwa koperkowa.",
+        "en": "Rye toast, smoked curd, pumpkin, beetroot, red onion, dill oil.",
+        "uk": "Житній тост, копчений творог, гарбуз, буряк, червона цибуля, кропова олія."
+      },
+      "ingredients": {
+        "pl": "śledź, chleb żytni, twaróg, dynia, burak, cebula, koper",
+        "en": "herring, rye bread, curd, pumpkin, beetroot, onion, dill",
+        "uk": "оселедець, житній хліб, творог, гарбуз, буряк, цибуля, кріп"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 64,
+      "poster": "/media/posters/matjas.jpg",
+      "video": "/media/videos/matjas.mp4",
+      "videoStatus": "ready",
+      "featured": true,
+      "available": true,
+      "sortOrder": 2,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "280 g",
+      "referenceImages": [
+        "/media/posters/matjas.jpg"
+      ]
+    },
+    {
+      "id": "vitello-tonnato",
+      "slug": "vitello-tonnato",
+      "category": "starters",
+      "name": {
+        "pl": "Vitello tonnato",
+        "en": "Vitello tonnato",
+        "uk": "Vitello tonnato"
+      },
+      "description": {
+        "pl": "Pieczona cielęcina, tuńczyk, sos ravigotte, grzyby marynowane, kapary.",
+        "en": "Roasted veal, tuna, ravigotte sauce, marinated mushrooms, capers.",
+        "uk": "Печена телятина, тунець, соус ravigotte, мариновані гриби, каперси."
+      },
+      "ingredients": {
+        "pl": "cielęcina, tuńczyk, sos ravigotte, grzyby, kapary",
+        "en": "veal, tuna, ravigotte, mushrooms, capers",
+        "uk": "телятина, тунець, ravigotte, гриби, каперси"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 69,
+      "poster": "/media/posters/vitello-tonnato.jpg",
+      "video": "/media/videos/vitello-tonnato.mp4",
+      "videoStatus": "ready",
+      "featured": true,
+      "available": true,
+      "sortOrder": 3,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "280 g",
+      "referenceImages": [
+        "/media/posters/vitello-tonnato.jpg"
+      ]
+    },
+    {
+      "id": "chopped-sirloin",
+      "slug": "chopped-sirloin",
+      "category": "starters",
+      "name": {
+        "pl": "Siekana polędwica & borowiki",
+        "en": "Chopped beef sirloin & porcini",
+        "uk": "Рублена вирізка і боровики"
+      },
+      "description": {
+        "pl": "Ogórki, szalotka, musztarda, lubczyk, żółtko, chilli, kapelusze borowika, ser Emilgrana.",
+        "en": "Cucumber, shallot, mustard, lovage, egg yolk, chilli, porcini caps, Emilgrana.",
+        "uk": "Огірки, шалот, гірчиця, любисток, жовток, чилі, шапинки боровика, Emilgrana."
+      },
+      "ingredients": {
+        "pl": "wołowina, borowiki, żółtko, Emilgrana, ogórek, szalotka",
+        "en": "beef, porcini, egg yolk, Emilgrana, cucumber, shallot",
+        "uk": "яловичина, боровики, жовток, Emilgrana, огірок, шалот"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 72,
+      "poster": "/media/posters/chopped-sirloin.jpg",
+      "video": "/media/videos/chopped-sirloin.mp4",
+      "videoStatus": "ready",
+      "featured": true,
+      "available": true,
+      "sortOrder": 4,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "100 / 200 g",
+      "referenceImages": [
+        "/media/posters/chopped-sirloin.jpg"
+      ],
+      "variants": [
+        {
+          "label": "100 g",
+          "price": 72
+        },
+        {
+          "label": "200 g",
+          "price": 86
+        }
+      ]
+    },
+    {
+      "id": "scallops",
+      "slug": "scallops",
+      "category": "starters",
+      "name": {
+        "pl": "Przegrzebki św. Jakuba",
+        "en": "Scallops St. Jacques",
+        "uk": "Гребінці св. Якова"
+      },
+      "description": {
+        "pl": "Krem z trawy cytrynowej, oliwa kolendrowa, bliny z dzikiego ryżu, chilli.",
+        "en": "Lemongrass cream, coriander oil, wild rice blini, chilli.",
+        "uk": "Крем з лемонграсу, коріандрова олія, млинці з дикого рису, чилі."
+      },
+      "ingredients": {
+        "pl": "przegrzebki, trawa cytrynowa, kolendra, dziki ryż, chilli",
+        "en": "scallops, lemongrass, coriander, wild rice, chilli",
+        "uk": "гребінці, лемонграс, коріандр, дикий рис, чилі"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 99,
+      "poster": "/media/posters/scallops.jpg",
+      "video": "/media/videos/scallops.mp4",
+      "videoStatus": "ready",
+      "featured": true,
+      "available": true,
+      "sortOrder": 5,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "250 g",
+      "referenceImages": [
+        "/media/posters/scallops.jpg"
+      ]
+    },
+    {
+      "id": "green-plate",
+      "slug": "green-plate",
+      "category": "starters",
+      "name": {
+        "pl": "Green plate",
+        "en": "Green plate",
+        "uk": "Green plate"
+      },
+      "description": {
+        "pl": "Sałata rzymska / pieczona dynia / pomidory / boczniaki / różowy pieprz / dressing Emilgrana / anchois / chipsy ziemniaczane.",
+        "en": "Romaine lettuce / roasted pumpkin / tomatoes / oyster mushrooms / pink pepper / Emilgrana dressing / anchovies / potato chips.",
+        "uk": "Ромен / печений гарбуз / помідори / гливи / рожевий перець / соус Emilgrana / анчоуси / картопляні чипси."
+      },
+      "ingredients": {
+        "pl": "sałata, dynia, pomidor, boczniaki, Emilgrana, anchois",
+        "en": "lettuce, pumpkin, tomato, oyster mushroom, Emilgrana, anchovy",
+        "uk": "салат, гарбуз, помідор, гливи, Emilgrana, анчоус"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 49,
+      "poster": "/media/posters/green-plate.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 6,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "300 g",
+      "referenceImages": [
+        "/media/posters/green-plate.jpg"
+      ],
+      "addOns": [
+        {
+          "label": {
+            "pl": "Kurczak zagrodowy",
+            "en": "Free-range chicken",
+            "uk": "Фермерська курка"
+          },
+          "weight": "120 g",
+          "price": 29
+        },
+        {
+          "label": {
+            "pl": "Krewetki",
+            "en": "Prawns",
+            "uk": "Креветки"
+          },
+          "weight": "80 g",
+          "price": 44
+        },
+        {
+          "label": {
+            "pl": "Polędwica wołowa",
+            "en": "Beef fillet",
+            "uk": "Яловича вирізка"
+          },
+          "weight": "80 g",
+          "price": 59
+        }
+      ]
+    },
+    {
+      "id": "cork-plate",
+      "slug": "cork-plate",
+      "category": "starters",
+      "name": {
+        "pl": "Talerz Corka",
+        "en": "Cork plate",
+        "uk": "Тарілка Cork"
+      },
+      "description": {
+        "pl": "Jamon Duroc Grand Reserva, salami Spianata, Bresaola Valtellina, rillettes z kaczki, oliwki, warzywa.",
+        "en": "Jamon Duroc Grand Reserva, Spianata, Bresaola Valtellina, duck rillettes, olives, vegetables.",
+        "uk": "Хамон Duroc, салямі Spianata, брезаола, рієт з качки, оливки, овочі."
+      },
+      "ingredients": {
+        "pl": "jamon, salami, bresaola, rillettes, oliwki, warzywa",
+        "en": "jamon, salami, bresaola, rillettes, olives, vegetables",
+        "uk": "хамон, салямі, брезаола, рієт, оливки, овочі"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 69,
+      "poster": "/media/posters/cork-plate.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 7,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "210 g",
+      "referenceImages": [
+        "/media/posters/cork-plate.jpg"
+      ]
+    },
+    {
+      "id": "cheese-cork",
+      "slug": "cheese-cork",
+      "category": "starters",
+      "name": {
+        "pl": "Sery dla Corka",
+        "en": "Cheese for Cork",
+        "uk": "Сири для Cork"
+      },
+      "description": {
+        "pl": "Kozi, owczy, krowi, oliwki, musztarda pomarańczowa, orzech włoski.",
+        "en": "Goat, sheep and cow cheeses, olives, orange mustard, walnut.",
+        "uk": "Козячий, овечий і коров'ячий сир, оливки, апельсинова гірчиця, волоський горіх."
+      },
+      "ingredients": {
+        "pl": "sery, oliwki, musztarda pomarańczowa, orzech",
+        "en": "cheeses, olives, orange mustard, walnut",
+        "uk": "сири, оливки, апельсинова гірчиця, горіх"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 69,
+      "poster": "/media/posters/cheese-cork.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 8,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "200 g",
+      "referenceImages": [
+        "/media/posters/cheese-cork.jpg"
+      ]
+    },
+    {
+      "id": "cork-mix",
+      "slug": "cork-mix",
+      "category": "starters",
+      "name": {
+        "pl": "Mix Corka",
+        "en": "Cork mix",
+        "uk": "Мікс Cork"
+      },
+      "description": {
+        "pl": "Wędliny, warzywa, sery kozi, owczy i krowi, oliwki, konfitura pomarańczowa.",
+        "en": "Jamon / Spianata / Bresaola / duck rillettes / vegetables / goat, sheep and cow cheese / olives / orange preserve.",
+        "uk": "Копченості, овочі, козячий, овечий і коров'ячий сир, оливки."
+      },
+      "ingredients": {
+        "pl": "jamon, salami, bresaola, rillettes, sery, oliwki",
+        "en": "jamon, salami, bresaola, rillettes, cheeses, olives",
+        "uk": "хамон, салямі, брезаола, рієт, сири, оливки"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 69,
+      "poster": "/media/posters/cork-mix.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 9,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "200 g",
+      "referenceImages": [
+        "/media/posters/cork-mix.jpg"
+      ]
+    },
+    {
+      "id": "chorizo-kaszanka",
+      "slug": "chorizo-kaszanka",
+      "category": "snacks",
+      "name": {
+        "pl": "Chorizo & kaszanka",
+        "en": "Chorizo & blood sausage",
+        "uk": "Чорізо і кашанка"
+      },
+      "description": {
+        "pl": "Pieczone chorizo, chrupiąca kaszanka, warzywa, Pimentón de la Vera.",
+        "en": "Baked chorizo, crispy blood sausage, vegetables, Pimentón de la Vera.",
+        "uk": "Печене чорізо, хрумка кров'янка, овочі, Pimentón de la Vera."
+      },
+      "ingredients": {
+        "pl": "chorizo, kaszanka, warzywa, pimentón",
+        "en": "chorizo, blood sausage, vegetables, pimentón",
+        "uk": "чорізо, кров'янка, овочі, піментон"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 68,
+      "poster": "/media/posters/chorizo-kaszanka.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 10,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "300 g",
+      "referenceImages": [
+        "/media/posters/chorizo-kaszanka.jpg"
+      ]
+    },
+    {
+      "id": "pappardelle-game",
+      "slug": "pappardelle-game",
+      "category": "mains",
+      "name": {
+        "pl": "Pappardelle ragoût dziczyzna",
+        "en": "Pappardelle with game ragout",
+        "uk": "Папарделе з рагу з дичини"
+      },
+      "description": {
+        "pl": "Palony sos, cebula konfitowana, rozmaryn, podgrzybki, kwaśna śmietana.",
+        "en": "Roasted sauce, onion confit, rosemary, bolete mushrooms, sour cream.",
+        "uk": "Палений соус, конфітюр цибулі, розмарин, підберезовики, сметана."
+      },
+      "ingredients": {
+        "pl": "pappardelle, dziczyzna, podgrzybki, śmietana, rozmaryn",
+        "en": "pappardelle, game, boletes, sour cream, rosemary",
+        "uk": "папарделе, дичина, гриби, сметана, розмарин"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 89,
+      "poster": "/media/posters/pappardelle-game.jpg",
+      "video": "/media/videos/pappardelle-game.mp4",
+      "videoStatus": "ready",
+      "featured": true,
+      "available": true,
+      "sortOrder": 11,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "350 g",
+      "referenceImages": [
+        "/media/posters/pappardelle-game.jpg"
+      ]
+    },
+    {
+      "id": "porcini-risotto",
+      "slug": "porcini-risotto",
+      "category": "mains",
+      "name": {
+        "pl": "Risotto borowiki",
+        "en": "Porcini risotto",
+        "uk": "Ризото з боровиками"
+      },
+      "description": {
+        "pl": "Pieczone borowiki, Gorgonzola Dolce, oliwa z orzecha włoskiego, natka pietruszki.",
+        "en": "Roasted porcini, Gorgonzola Dolce, walnut oil, parsley.",
+        "uk": "Печені боровики, Gorgonzola Dolce, горіхова олія, петрушка."
+      },
+      "ingredients": {
+        "pl": "ryż, borowiki, gorgonzola, oliwa orzechowa, pietruszka",
+        "en": "rice, porcini, gorgonzola, walnut oil, parsley",
+        "uk": "рис, боровики, горгонзола, горіхова олія, петрушка"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 89,
+      "poster": "/media/posters/porcini-risotto.jpg",
+      "video": "/media/videos/porcini-risotto.mp4",
+      "videoStatus": "ready",
+      "featured": true,
+      "available": true,
+      "sortOrder": 12,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "350 g",
+      "referenceImages": [
+        "/media/posters/porcini-risotto.jpg"
+      ],
+      "addOns": [
+        {
+          "label": {
+            "pl": "Kurczak zagrodowy",
+            "en": "Free-range chicken",
+            "uk": "Фермерська курка"
+          },
+          "weight": "120 g",
+          "price": 29
+        },
+        {
+          "label": {
+            "pl": "Krewetki",
+            "en": "Prawns",
+            "uk": "Креветки"
+          },
+          "weight": "80 g",
+          "price": 44
+        },
+        {
+          "label": {
+            "pl": "Polędwica wołowa",
+            "en": "Beef fillet",
+            "uk": "Яловича вирізка"
+          },
+          "weight": "80 g",
+          "price": 59
+        }
+      ]
+    },
+    {
+      "id": "rubia-gallega",
+      "slug": "rubia-gallega",
+      "category": "meat",
+      "name": {
+        "pl": "Wołowina Rubia Gallega",
+        "en": "Rubia Gallega beef",
+        "uk": "Яловичина Rubia Gallega"
+      },
+      "description": {
+        "pl": "Polędwica 180 g przed wysmażeniem / pieczone warzywa / beza ziemniaczana / grzyby leśne w śmietanie.",
+        "en": "Beef fillet, 180 g before cooking / roasted vegetables / potato meringue / wild mushrooms in cream.",
+        "uk": "Яловича вирізка, 180 г до приготування / печені овочі / картопляне безе / лісові гриби у вершках."
+      },
+      "ingredients": {
+        "pl": "polędwica, warzywa, ziemniak, grzyby, śmietana",
+        "en": "beef fillet, vegetables, potato, mushrooms, cream",
+        "uk": "філе, овочі, картопля, гриби, вершки"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 199,
+      "poster": "/media/posters/rubia-gallega.jpg",
+      "video": "/media/videos/rubia-gallega.mp4",
+      "videoStatus": "ready",
+      "featured": true,
+      "available": true,
+      "sortOrder": 13,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "380 g",
+      "referenceImages": [
+        "/media/posters/rubia-gallega.jpg"
+      ]
+    },
+    {
+      "id": "wagyu-tataki",
+      "slug": "wagyu-tataki",
+      "category": "meat",
+      "name": {
+        "pl": "Wołowina Wagyu tataki",
+        "en": "Wagyu beef tataki",
+        "uk": "Вагю татакі"
+      },
+      "description": {
+        "pl": "Rostbef A5/A5+ 100 g przed wysmażeniem / dziki brokuł / piklowana rzodkiew / sos brązowy / frytki / majonez truflowy.",
+        "en": "A5/A5+ beef, 100 g before cooking / wild broccoli / pickled radish / brown sauce / fries / truffle mayonnaise.",
+        "uk": "Яловичина A5/A5+, 100 г до приготування / дикий броколі / маринована редиска / коричневий соус / фрі / трюфельний майонез."
+      },
+      "ingredients": {
+        "pl": "wagyu, brokuł, rzodkiew, sos, frytki, majonez truflowy",
+        "en": "wagyu, broccoli, radish, sauce, fries, truffle mayo",
+        "uk": "вагю, броколі, редиска, соус, фрі, трюфельний майонез"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 199,
+      "poster": "/media/posters/wagyu-tataki.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": true,
+      "available": true,
+      "sortOrder": 14,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "250 g",
+      "referenceImages": [
+        "/media/posters/wagyu-tataki.jpg"
+      ]
+    },
+    {
+      "id": "duck-confit",
+      "slug": "duck-confit",
+      "category": "meat",
+      "name": {
+        "pl": "Kaczka noga confit",
+        "en": "Duck leg confit",
+        "uk": "Конфі ніжки качки"
+      },
+      "description": {
+        "pl": "Kluseczki ziemniaczane, czerwona kapusta, wędzony boczek, masło, orzech, tymianek.",
+        "en": "Potato dumplings, red cabbage, smoked bacon, butter, walnut, thyme.",
+        "uk": "Картопляні кльоцки, червона капуста, копчений бекон, масло, горіх, чебрець."
+      },
+      "ingredients": {
+        "pl": "kaczka, kluseczki, kapusta, boczek, orzech, tymianek",
+        "en": "duck, dumplings, cabbage, bacon, walnut, thyme",
+        "uk": "качка, кльоцки, капуста, бекон, горіх, чебрець"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 99,
+      "poster": "/media/posters/duck-confit.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 15,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "380 g",
+      "referenceImages": [
+        "/media/posters/duck-confit.jpg"
+      ]
+    },
+    {
+      "id": "pork-tenderloin",
+      "slug": "pork-tenderloin",
+      "category": "meat",
+      "name": {
+        "pl": "Polędwiczka wieprzowa & grzyby",
+        "en": "Pork tenderloin & mushrooms",
+        "uk": "Свиняча вирізка і гриби"
+      },
+      "description": {
+        "pl": "Pieczona kapusta włoska, pomidor, puree, pieczony czosnek, sos z grzybów leśnych.",
+        "en": "Roasted savoy cabbage, tomato, mash, roasted garlic, wild mushroom sauce.",
+        "uk": "Печена савойська капуста, помідор, пюре, печений часник, соус з лісових грибів."
+      },
+      "ingredients": {
+        "pl": "wieprzowina, kapusta, pomidor, ziemniak, czosnek, grzyby",
+        "en": "pork, cabbage, tomato, potato, garlic, mushrooms",
+        "uk": "свинина, капуста, помідор, картопля, часник, гриби"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 94,
+      "poster": "/media/posters/pork-tenderloin.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 16,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "420 g",
+      "referenceImages": [
+        "/media/posters/pork-tenderloin.jpg"
+      ]
+    },
+    {
+      "id": "tuna-tataki",
+      "slug": "tuna-tataki",
+      "category": "seafood",
+      "name": {
+        "pl": "Tuńczyk tataki",
+        "en": "Tuna tataki",
+        "uk": "Тунець татакі"
+      },
+      "description": {
+        "pl": "Domowe guacamole, sos pico de gallo, papadamy, czarnuszka.",
+        "en": "Homemade guacamole, pico de gallo, papadams, black cumin.",
+        "uk": "Домашнє гуакамоле, pico de gallo, пападам, чорнушка."
+      },
+      "ingredients": {
+        "pl": "tuńczyk, awokado, pico de gallo, papadam, czarnuszka",
+        "en": "tuna, avocado, pico de gallo, papadam, nigella",
+        "uk": "тунець, авокадо, pico de gallo, пападам, чорнушка"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 119,
+      "poster": "/media/posters/tuna-tataki.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": true,
+      "available": true,
+      "sortOrder": 17,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "350 g",
+      "referenceImages": [
+        "/media/posters/tuna-tataki.jpg"
+      ]
+    },
+    {
+      "id": "prawns-octopus",
+      "slug": "prawns-octopus",
+      "category": "seafood",
+      "name": {
+        "pl": "Krewetki & ośmiornica",
+        "en": "Prawns & octopus",
+        "uk": "Креветки і восьминіг"
+      },
+      "description": {
+        "pl": "Czosnek, masło, natka, chilli, oliwki Sarasa, papryczka Padrón, chrupiące ziemniaki.",
+        "en": "Garlic, butter, parsley, chilli, Sarasa olives, Padrón peppers, crispy potatoes.",
+        "uk": "Часник, масло, петрушка, чилі, оливки Sarasa, падрон, хрумка картопля."
+      },
+      "ingredients": {
+        "pl": "krewetki, ośmiornica, czosnek, masło, oliwki, padrón, ziemniaki",
+        "en": "prawns, octopus, garlic, butter, olives, padrón, potatoes",
+        "uk": "креветки, восьминіг, часник, масло, оливки, падрон, картопля"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 119,
+      "poster": "/media/posters/prawns-octopus.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": true,
+      "available": true,
+      "sortOrder": 18,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "340 g",
+      "referenceImages": [
+        "/media/posters/prawns-octopus.jpg"
+      ]
+    },
+    {
+      "id": "halibut-lobster",
+      "slug": "halibut-lobster",
+      "category": "seafood",
+      "name": {
+        "pl": "Halibut & homar",
+        "en": "Halibut & lobster",
+        "uk": "Палтус і лобстер"
+      },
+      "description": {
+        "pl": "Młody szpinak, esencja z homara, śmietanka, szafran, pieczone ziemniaki, czosnek, koper.",
+        "en": "Baby spinach, lobster essence, cream, saffron, roasted potatoes, garlic, dill.",
+        "uk": "Молодий шпинат, есенція лобстера, вершки, шафран, печена картопля, часник, кріп."
+      },
+      "ingredients": {
+        "pl": "halibut, homar, szpinak, śmietana, szafran, ziemniak",
+        "en": "halibut, lobster, spinach, cream, saffron, potato",
+        "uk": "палтус, лобстер, шпинат, вершки, шафран, картопля"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 129,
+      "poster": "/media/posters/halibut-lobster.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 19,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "350 g",
+      "referenceImages": [
+        "/media/posters/halibut-lobster.jpg"
+      ]
+    },
+    {
+      "id": "double-apple",
+      "slug": "double-apple",
+      "category": "desserts",
+      "name": {
+        "pl": "Podwójne jabłko & kruszonka",
+        "en": "Double apple & crumble",
+        "uk": "Подвійне яблуко і крихта"
+      },
+      "description": {
+        "pl": "Karmel, trawa żubrowa, lody pieczone jabłko.",
+        "en": "Caramel, bison grass, baked apple ice cream.",
+        "uk": "Карамель, зубрівка, морозиво з печеного яблука."
+      },
+      "ingredients": {
+        "pl": "jabłko, kruszonka, karmel, żubrówka, lody",
+        "en": "apple, crumble, caramel, bison grass, ice cream",
+        "uk": "яблуко, крихта, карамель, зубрівка, морозиво"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 39,
+      "poster": "/media/posters/double-apple.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 20,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "250 g",
+      "referenceImages": [
+        "/media/posters/double-apple.jpg"
+      ]
+    },
+    {
+      "id": "pistachio-fondant",
+      "slug": "pistachio-fondant",
+      "category": "desserts",
+      "name": {
+        "pl": "Fondant pistacjowy",
+        "en": "Pistachio fondant",
+        "uk": "Фісташковий фондан"
+      },
+      "description": {
+        "pl": "Sos czekoladowy z fasolą Tonka, lody śmietankowe.",
+        "en": "Chocolate sauce with Tonka bean / cream ice cream.",
+        "uk": "Шоколадний соус з бобами тонка, вершкове морозиво."
+      },
+      "ingredients": {
+        "pl": "pistacja, czekolada, tonka, lody",
+        "en": "pistachio, chocolate, tonka, ice cream",
+        "uk": "фісташка, шоколад, тонка, морозиво"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 39,
+      "poster": "/media/posters/pistachio-fondant.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": true,
+      "available": true,
+      "sortOrder": 21,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "210 g",
+      "referenceImages": [
+        "/media/posters/pistachio-fondant.jpg"
+      ]
+    },
+    {
+      "id": "meringue-cherry",
+      "slug": "meringue-cherry",
+      "category": "desserts",
+      "name": {
+        "pl": "Beza, wiśnia & czekolada",
+        "en": "Meringue, cherry & Madagascar chocolate",
+        "uk": "Безе, вишня і шоколад"
+      },
+      "description": {
+        "pl": "Mascarpone, konfitowane wiśnie, cynamon, lody czekolada–chili, oliwa miętowa.",
+        "en": "Mascarpone, cherry confit, cinnamon, chocolate-chilli ice cream, mint oil.",
+        "uk": "Маскарпоне, конфітюр вишні, кориця, морозиво шоколад-чилі, м'ятна олія."
+      },
+      "ingredients": {
+        "pl": "beza, wiśnia, czekolada, mascarpone, chilli, mięta",
+        "en": "meringue, cherry, chocolate, mascarpone, chilli, mint",
+        "uk": "безе, вишня, шоколад, маскарпоне, чилі, м'ята"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 39,
+      "poster": "/media/posters/meringue-cherry.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 22,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "280 g",
+      "referenceImages": [
+        "/media/posters/meringue-cherry.jpg"
+      ]
+    },
+    {
+      "id": "ice-cream-olive",
+      "slug": "ice-cream-olive",
+      "category": "desserts",
+      "name": {
+        "pl": "Lody & oliwa",
+        "en": "Ice cream & olive oil",
+        "uk": "Морозиво і оливкова олія"
+      },
+      "description": {
+        "pl": "Pistacja Sicilian Bronte albo lody z liści figowca, złota oliwa.",
+        "en": "Sicilian Bronte pistachio or fig-leaf ice cream, golden olive oil.",
+        "uk": "Фісташка Bronte або морозиво з листя інжиру, золота олія."
+      },
+      "ingredients": {
+        "pl": "lody, pistacja lub liść figi, oliwa",
+        "en": "ice cream, pistachio or fig leaf, olive oil",
+        "uk": "морозиво, фісташка або інжир, олія"
+      },
+      "allergens": {
+        "pl": "Zapytaj obsługę o alergeny przed zamówieniem.",
+        "en": "Please ask our team about allergens before ordering.",
+        "uk": "Перед замовленням запитайте персонал про алергени."
+      },
+      "price": 18,
+      "poster": "/media/posters/ice-cream-olive.jpg",
+      "video": null,
+      "videoStatus": "none",
+      "featured": false,
+      "available": true,
+      "sortOrder": 23,
+      "productType": "food",
+      "currency": "PLN",
+      "demo": true,
+      "videoError": null,
+      "weight": "60 g",
+      "referenceImages": [
+        "/media/posters/ice-cream-olive.jpg"
+      ]
+    }
+  ]
+}
