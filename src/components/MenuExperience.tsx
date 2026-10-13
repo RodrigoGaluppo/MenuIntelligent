@@ -7,7 +7,7 @@ import { VideoCard } from "./VideoCard";
 import { ReelViewer } from "./ReelViewer";
 import { GoogleTranslate } from "./GoogleTranslate";
 
-const NAV = ["all", "popular", "ritual", "starters", "snacks", "mains", "meat", "seafood", "desserts"] as const;
+const CATEGORIES = ["ritual", "starters", "snacks", "mains", "meat", "seafood", "desserts"] as const;
 const guestCopy: Record<Locale, { wifi: string; wifiHelp: string; menu: string; waiter: string; reviews: string; back: string; network: string; password: string }> = {
   pl: { wifi: "Dane Wi-Fi", wifiHelp: "Poproś obsługę o aktualną nazwę sieci i hasło.", menu: "Przejdź do karty", waiter: "Zawołaj obsługę", reviews: "Opinie Google", back: "Wróć", network: "Sieć", password: "Hasło" },
   en: { wifi: "Wi-Fi details", wifiHelp: "Ask our team for the current network name and password.", menu: "Go to menu", waiter: "Call a waiter", reviews: "Google reviews", back: "Back", network: "Network", password: "Password" },
@@ -19,7 +19,6 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
   const [screen, setScreen] = useState<"welcome" | "menu">("welcome");
   const [wifiOpen, setWifiOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [cat, setCat] = useState<string>("all");
   const [reel, setReel] = useState<string | null>(null);
 
   const visible = useMemo(() => {
@@ -27,11 +26,13 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
     return products.filter((product) => {
       if (!product.available) return false;
       const haystack = (t(product.name, locale) + " " + t(product.description, locale)).toLocaleLowerCase();
-      if (q && !haystack.includes(q)) return false;
-      if (cat === "popular") return product.featured;
-      return cat === "all" || product.category === cat;
+      return !q || haystack.includes(q);
     });
-  }, [products, query, cat, locale]);
+  }, [products, query, locale]);
+  const sections = useMemo(() => CATEGORIES
+    .map((category) => ({ category, products: visible.filter((product) => product.category === category) }))
+    .filter((section) => section.products.length > 0), [visible]);
+
   const copy = ui[locale];
   const guest = guestCopy[locale];
   const reviewsUrl = "https://www.google.com/maps/search/?api=1&query=The+Cork+R32+Rzeznicza+32%2F33+Wroclaw";
@@ -63,15 +64,11 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
                   {(!restaurant.wifiName || !restaurant.wifiPassword) && <p>{guest.wifiHelp}</p>}
                 </div>
               )}
-              <button className="guest-action guest-menu" type="button" onClick={() => { setCat("all"); setQuery(""); setScreen("menu"); }}>
+              <button className="guest-action guest-menu" type="button" onClick={() => { setQuery(""); setScreen("menu"); }}>
                 <span>{guest.menu}</span><span className="guest-arrow">↗</span>
               </button>
-              <a className="guest-action" href={phoneUrl}>
-                <span>{guest.waiter}</span><span className="guest-arrow">↗</span>
-              </a>
-              <a className="guest-action" href={reviewsUrl} target="_blank" rel="noreferrer">
-                <span>{guest.reviews}</span><span className="guest-arrow">↗</span>
-              </a>
+              <a className="guest-action" href={phoneUrl}><span>{guest.waiter}</span><span className="guest-arrow">↗</span></a>
+              <a className="guest-action" href={reviewsUrl} target="_blank" rel="noreferrer"><span>{guest.reviews}</span><span className="guest-arrow">↗</span></a>
             </nav>
           </section>
           <footer className="welcome-footer"><span>R32 · WROCŁAW</span><a href="https://thecork.pl" target="_blank" rel="noreferrer">THECORK.PL</a></footer>
@@ -86,19 +83,20 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
             </label>
             <GoogleTranslate />
           </div>
-          <nav className="category-strip no-scrollbar" aria-label={copy.menu}>
-            {NAV.filter((id) => id === "all" || id === "popular" || products.some((product) => product.available && product.category === id)).map((id) => (
-              <button key={id} type="button" aria-pressed={cat === id} onClick={() => setCat(id)}>{t(categoryNames[id], locale)}</button>
-            ))}
-          </nav>
+          {sections.length > 0 && <nav className="category-strip no-scrollbar" aria-label={copy.menu}>
+            {sections.map(({ category }) => <a key={category} href={`#category-${category}`}>{t(categoryNames[category], locale)}</a>)}
+          </nav>}
           <section className="menu-grid-wrap" aria-label={copy.menu}>
-            {visible.length === 0 ? <p className="menu-empty">{copy.empty}</p> : (
-              <div className="dish-grid">{visible.map((product) => <VideoCard key={product.id} product={product} locale={locale} onOpen={setReel} />)}</div>
-            )}
+            {sections.length === 0 ? <p className="menu-empty">{copy.empty}</p> : sections.map(({ category, products: categoryProducts }) => (
+              <section className="menu-category" id={`category-${category}`} key={category} aria-labelledby={`heading-${category}`}>
+                <div className="menu-category-heading"><h2 id={`heading-${category}`}>{t(categoryNames[category], locale)}</h2><span>{String(categoryProducts.length).padStart(2, "0")}</span></div>
+                <div className="dish-grid">{categoryProducts.map((product) => <VideoCard key={product.id} product={product} locale={locale} onOpen={setReel} />)}</div>
+              </section>
+            ))}
           </section>
         </main>
       )}
-      {reel && <ReelViewer products={visible.length ? visible : products.filter((product) => product.available)} startId={reel} locale={locale} onClose={() => setReel(null)} />}
+      {reel && <ReelViewer products={visible} startId={reel} locale={locale} onClose={() => setReel(null)} />}
     </div>
   );
 }
