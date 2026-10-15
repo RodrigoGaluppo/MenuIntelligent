@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { Product } from "@/lib/types";
 
 const empty: Product = {
@@ -108,9 +109,9 @@ export default function AdminPage() {
           <p className="tracking-[0.4em]">THE CORK</p>
           <h1 className="serif text-4xl">Admin</h1>
         </div>
-        <a href="/" className="text-sm text-[#b7aea0]">
+        <Link href="/" className="text-sm text-[#b7aea0]">
           ← Menu
-        </a>
+        </Link>
       </div>
 
       <div className="mx-auto mt-8 grid max-w-6xl gap-8 md:grid-cols-2">

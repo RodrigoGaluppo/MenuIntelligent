@@ -1,6 +1,6 @@
 # The Cork — seasonal visual menu
 
-Redesigned from `/home/russo/menuintelligente` using the September 2026 menu and the supplied Google document. The original project stays unchanged.
+Visitor menu for THE CORK R32, based on the September 2026 menu and the supplied Google document.
 
 ## GitHub Pages
 
@@ -23,20 +23,17 @@ Admin: http://localhost:3000/admin
 
 Production commands for a regular Node server are `npm run build` and `npm start`.
 
-## Local visual preview
-
-Open `.preview/index.html` in a browser. It uses a local React 18 UMD/Babel preview harness and the site's source components and current data. This snapshot is for inspection; it does not run the Next server or admin API.
-
-Desktop, mobile and menu screenshots are in `.preview/`.
-
 ## Menu and design
 
-- Cream, deep green and olive palette inspired by The Cork interior; editorial layout with dish photography.
+- White and turquoise palette with THE CORK wordmark in uppercase throughout the visitor experience.
+- Large portrait video or photo for each dish, followed by its name, ingredients, then a quiet price and weight line.
+- Expandable categories keep the menu uncluttered. Search opens matching categories automatically.
+- Larger mobile icon controls, smooth section scrolling, and reduced-motion support.
 - 23 dishes from the September 2026 menu with prices and weights.
 - Beef tartare portions: 100 g / 72 PLN and 200 g / 86 PLN.
 - Optional chicken, prawns and beef additions for Green Plate and porcini risotto.
-- Polish, English and Ukrainian navigation, search, filters and accessible dish details.
-- Preserved all 23 dish posters and eight finished videos. Other dishes use still photos.
+- Polish, English and Ukrainian navigation, search, and accessible dish details.
+- Preserved all 23 dish posters and eight finished videos. Video cards play only while visible; other dishes use still photos.
 - Used the supplied document's restaurant interior and olive ritual images.
 - The PDF does not list allergens, so the menu directs guests to staff rather than making up allergen details.
 - Reflected VAT and the 10% charge for groups of six or more.
@@ -54,11 +51,12 @@ The dish photographs are illustrative generated assets inherited from the earlie
 
 ## Verification
 
-- Strict TypeScript 5.9.3 checks passed with zero diagnostics for menu components, types, data and translations.
-- Menu data has 23 unique IDs, positive prices, all poster files and all eight referenced video files.
-- 17 desktop/mobile browser checks passed, covering language switching, filters and reset, dish details, focus handling, pricing, keyboard navigation and photo fallback.
-- A complete local Next production build could not be run in this environment because npm startup is blocked by `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`. GitHub Actions installs dependencies and builds the Pages export after a repository is supplied.
-- Server admin and external video generation have not been deployed to Pages.
+- `npm run lint`, `npx tsc --noEmit`, and `npm run build` pass locally.
+- The GitHub Pages static export was built separately with `GITHUB_PAGES_BASE=/MenuIntelligent` after excluding the Node-only admin and API routes, matching the workflow.
+- Chromium checks at 390 px and 1440 px confirmed the mobile layout has no horizontal overflow, category expansion works, video detail opens, and search filters to a matching dish.
+- Server admin and external video generation are not deployed to Pages.
+
+The menu UI follows [WCAG 2.2 target sizing guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum) and [reduced-motion guidance](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion). Video loading uses posters and viewport playback in line with [web.dev's video performance guidance](https://web.dev/learn/performance/video-performance).
 
 ## Video generation
 
