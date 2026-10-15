@@ -1,4 +1,4 @@
-# The Cork — seasonal visual menu
+# THE CORK — seasonal visual menu
 
 Visitor menu for THE CORK R32, based on the September 2026 menu and the supplied Google document.
 
@@ -8,7 +8,7 @@ The included workflow builds and deploys the visitor menu to GitHub Pages whenev
 
 The Pages build uses Next.js static export, with the repository name as the URL base path so images, videos and the menu PDF load from a project Pages URL. GitHub Pages cannot run the app’s Node admin and API routes. The workflow omits those routes from its temporary build checkout; they remain available in the repository for local/server deployment.
 
-After pushing the project to a GitHub repository, set its Pages source to **GitHub Actions** in **Settings → Pages** if needed. The deployment workflow will then publish the visitor menu. The local admin still requires a Node server.
+Published visitor menu: [RodrigoGaluppo.github.io/MenuIntelligent](https://RodrigoGaluppo.github.io/MenuIntelligent/). The local admin still requires a Node server.
 
 ## Local setup
 
@@ -26,14 +26,14 @@ Production commands for a regular Node server are `npm run build` and `npm start
 ## Menu and design
 
 - White and turquoise palette with THE CORK wordmark in uppercase throughout the visitor experience.
-- Large portrait video or photo for each dish, followed by its name, ingredients, then a quiet price and weight line.
+- Menu cards show a still image and the dish name. Opening a card starts its video; the full-screen story shows ingredients and a quiet price and weight line.
 - Expandable categories keep the menu uncluttered. Search opens matching categories automatically.
 - Larger mobile icon controls, smooth section scrolling, and reduced-motion support.
 - 23 dishes from the September 2026 menu with prices and weights.
 - Beef tartare portions: 100 g / 72 PLN and 200 g / 86 PLN.
 - Optional chicken, prawns and beef additions for Green Plate and porcini risotto.
 - Polish, English and Ukrainian navigation, search, and accessible dish details.
-- Preserved all 23 dish posters and eight finished videos. Video cards play only while visible; other dishes use still photos.
+- Preserved all 23 dish posters and eight finished videos. No video plays in the menu grid; vertical scrolling or swiping advances between dishes in the open category.
 - Used the supplied document's restaurant interior and olive ritual images.
 - The PDF does not list allergens, so the menu directs guests to staff rather than making up allergen details.
 - Reflected VAT and the 10% charge for groups of six or more.
@@ -53,10 +53,10 @@ The dish photographs are illustrative generated assets inherited from the earlie
 
 - `npm run lint`, `npx tsc --noEmit`, and `npm run build` pass locally.
 - The GitHub Pages static export was built separately with `GITHUB_PAGES_BASE=/MenuIntelligent` after excluding the Node-only admin and API routes, matching the workflow.
-- Chromium checks at 390 px and 1440 px confirmed the mobile layout has no horizontal overflow, category expansion works, video detail opens, and search filters to a matching dish.
+- Chromium checks at 390 px and 1440 px confirmed the mobile layout has no horizontal overflow, category expansion works, and search filters to a matching dish. A follow-up production-browser check confirmed cards show only a name with no video request, opening a card starts playback, and wheel scrolling and mobile swiping advance through dishes without visible arrow buttons.
 - Server admin and external video generation are not deployed to Pages.
 
-The menu UI follows [WCAG 2.2 target sizing guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum) and [reduced-motion guidance](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion). Video loading uses posters and viewport playback in line with [web.dev's video performance guidance](https://web.dev/learn/performance/video-performance).
+The menu UI follows [WCAG 2.2 target sizing guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum) and [reduced-motion guidance](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion). Video loading uses posters and click-to-play in line with [web.dev's video performance guidance](https://web.dev/learn/performance/video-performance).
 
 ## Video generation
 

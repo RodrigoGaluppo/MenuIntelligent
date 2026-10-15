@@ -75,19 +75,16 @@ svg{display:block;flex:none}
 .dish-card:only-child{grid-column:1/-1;width:min(100%,700px);justify-self:center}
 .dish-card{display:flex;flex-direction:column;width:100%;min-width:0;padding:0;border:0;background:transparent;color:var(--ink);text-align:left;appearance:none}
 .dish-media{position:relative;display:block;width:100%;aspect-ratio:4/5;overflow:hidden;background:var(--turquoise-soft)}
-.dish-media img,.dish-media video{display:block;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.92) contrast(1.02);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.dish-card:hover .dish-media img,.dish-card:hover .dish-media video{transform:scale(1.025)}
+.dish-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.92) contrast(1.02);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.dish-card:hover .dish-media img{transform:scale(1.025)}
 .dish-content{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:19px 0 0}
 .dish-title{display:block;color:var(--ink);font:400 clamp(27px,3vw,37px)/1.08 Georgia,"Times New Roman",serif;letter-spacing:-.04em}
-.dish-ingredients{display:block;max-width:48ch;margin-top:10px;color:#4f696b;font-size:15px;line-height:1.5}
-.dish-meta{display:flex;align-items:baseline;gap:12px;margin-top:14px;color:var(--turquoise-deep);font-size:13px;font-weight:600;letter-spacing:.02em;opacity:.59}
-.dish-meta span+span::before{content:"·";margin-right:12px}
 .menu-empty{padding:55px 0;color:var(--muted);font-size:15px}
 .menu-footer{max-width:1280px;margin:60px auto 0;padding:22px 32px 36px;border-top:1px solid var(--line);color:var(--turquoise);font-size:10px;font-weight:700;letter-spacing:.2em}
 
 .story-overlay{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(4,31,34,.89);animation:overlay-enter .25s ease both}
 @keyframes overlay-enter{from{opacity:0}to{opacity:1}}
-.story-viewer{position:relative;isolation:isolate;width:min(100vw,540px);height:min(100dvh,920px);overflow:hidden;background:#1b4f50;color:white;box-shadow:0 20px 100px rgba(0,0,0,.25)}
+.story-viewer{position:relative;isolation:isolate;width:min(100vw,540px);height:min(100dvh,920px);overflow:hidden;overscroll-behavior:contain;background:#1b4f50;color:white;box-shadow:0 20px 100px rgba(0,0,0,.25)}
 .story-media,.story-media video,.story-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .story-media{z-index:-2;animation:media-enter .42s ease both}
 .story-media video,.story-media img{filter:saturate(.92) contrast(1.02)}
@@ -100,7 +97,7 @@ svg{display:block;flex:none}
 .story-icon svg{width:22px;height:22px}
 .story-side{position:absolute;top:82px;right:22px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .story-count{margin:8px 0;color:rgba(255,255,255,.78);font-size:10px;font-weight:700;letter-spacing:.08em;white-space:nowrap}
-.story-copy{position:absolute;left:clamp(24px,6vw,38px);right:clamp(58px,12vw,72px);bottom:clamp(23px,4vw,40px);max-height:62%;overflow:auto;scrollbar-width:thin;animation:copy-enter .4s ease both}
+.story-copy{position:absolute;left:clamp(24px,6vw,38px);right:clamp(24px,6vw,38px);bottom:clamp(23px,4vw,40px);max-height:62%;overflow:auto;scrollbar-width:thin;animation:copy-enter .4s ease both}
 @keyframes copy-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .story-copy h2{margin:0;color:white;font:400 clamp(38px,8vw,58px)/.99 Georgia,"Times New Roman",serif;letter-spacing:-.055em}
 .story-ingredients{margin:15px 0 0;color:rgba(255,255,255,.92);font-size:15px;line-height:1.5}
@@ -147,13 +144,11 @@ svg{display:block;flex:none}
   .dish-grid{grid-template-columns:minmax(0,1fr);gap:42px;padding:6px 0 44px}
   .dish-content{padding-top:16px}
   .dish-title{font-size:clamp(28px,8vw,36px)}
-  .dish-ingredients{font-size:14px}
-  .dish-meta{font-size:13px}
   .menu-footer{margin-top:38px;padding-inline:5%}
   .story-viewer{width:100vw;height:100dvh}
   .story-top{padding:15px 18px}
   .story-side{right:17px}
-  .story-copy{left:22px;right:68px;bottom:28px}
+  .story-copy{left:22px;right:22px;bottom:28px}
 }
 @media(max-width:370px){
   .brand-mark h1{font-size:46px}

@@ -7,22 +7,36 @@ import { money, t, ui } from "@/lib/i18n";
 import { assetPath } from "@/lib/assets";
 import { Icon } from "./Icons";
 
+function copyCanScroll(target: EventTarget | null, direction: number) {
+  const copy = target instanceof Element ? target.closest<HTMLElement>(".story-copy") : null;
+  if (!copy || copy.scrollHeight <= copy.clientHeight + 2) return false;
+  return direction > 0
+    ? copy.scrollTop + copy.clientHeight < copy.scrollHeight - 2
+    : copy.scrollTop > 2;
+}
+
 export function ReelViewer({ products, startId, locale, onClose }: {
   products: Product[]; startId: string; locale: Locale; onClose: () => void;
 }) {
-  const [index, setIndex] = useState(Math.max(0, products.findIndex((p) => p.id === startId)));
+  const initialIndex = Math.max(0, products.findIndex((p) => p.id === startId));
+  const [index, setIndex] = useState(initialIndex);
+  const indexRef = useRef(initialIndex);
   const [paused, setPaused] = useState(false);
   const [failedId, setFailedId] = useState<string | null>(null);
   const [variant, setVariant] = useState(0);
   const dialog = useRef<HTMLDivElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const video = useRef<HTMLVideoElement>(null);
-  const touch = useRef<{ x: number; y: number } | null>(null);
+  const touch = useRef<{ x: number; y: number; copy: { top: number; height: number; total: number } | null } | null>(null);
+  const wheel = useRef({ total: 0, last: 0, lockedUntil: 0 });
   const product = products[index];
 
   const go = useCallback((direction: number) => {
     if (products.length < 2) return;
-    setIndex((i) => (i + direction + products.length) % products.length);
+    const next = Math.max(0, Math.min(products.length - 1, indexRef.current + direction));
+    if (next === indexRef.current) return;
+    indexRef.current = next;
+    setIndex(next);
     setVariant(0);
     setFailedId(null);
     setPaused(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -36,8 +50,8 @@ export function ReelViewer({ products, startId, locale, onClose }: {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPaused(true);
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
-      if (event.key === "ArrowLeft" || event.key === "ArrowUp") { event.preventDefault(); go(-1); }
-      if (event.key === "ArrowRight" || event.key === "ArrowDown") { event.preventDefault(); go(1); }
+      if (event.key === "ArrowUp" || event.key === "PageUp") { event.preventDefault(); go(-1); }
+      if (event.key === "ArrowDown" || event.key === "PageDown") { event.preventDefault(); go(1); }
       if (event.key === "Tab") {
         const focusables = dialog.current?.querySelectorAll<HTMLElement>("button, summary");
         if (!focusables?.length) return;
@@ -64,18 +78,40 @@ export function ReelViewer({ products, startId, locale, onClose }: {
   const hasVideo = !!product.video && failedId !== product.id;
   const price = product.variants?.[variant]?.price ?? product.price;
   const weight = product.variants?.[variant]?.label ?? product.weight;
-  const previous = locale === "pl" ? "Poprzednie danie" : locale === "en" ? "Previous dish" : "Попередня страва";
-  const next = locale === "pl" ? "Następne danie" : locale === "en" ? "Next dish" : "Наступна страва";
-
   return <div className="story-overlay" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <div ref={dialog} className="story-viewer" role="dialog" aria-modal="true" aria-labelledby="dish-title"
-      onTouchStart={(event) => { touch.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }}
+      onWheel={(event) => {
+        const direction = Math.sign(event.deltaY);
+        if (!direction || copyCanScroll(event.target, direction)) return;
+        const now = performance.now();
+        if (now < wheel.current.lockedUntil) return;
+        wheel.current.total = now - wheel.current.last > 180 ? event.deltaY : wheel.current.total + event.deltaY;
+        wheel.current.last = now;
+        if (Math.abs(wheel.current.total) < 70) return;
+        go(Math.sign(wheel.current.total));
+        wheel.current.total = 0;
+        wheel.current.lockedUntil = now + 650;
+      }}
+      onTouchStart={(event) => {
+        const copy = event.target instanceof Element ? event.target.closest<HTMLElement>(".story-copy") : null;
+        touch.current = {
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY,
+          copy: copy ? { top: copy.scrollTop, height: copy.clientHeight, total: copy.scrollHeight } : null,
+        };
+      }}
       onTouchEnd={(event) => {
         if (!touch.current) return;
         const dy = event.changedTouches[0].clientY - touch.current.y;
         const dx = event.changedTouches[0].clientX - touch.current.x;
-        if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx)) go(dy < 0 ? 1 : -1);
-        else if (Math.abs(dx) > 90) go(dx < 0 ? 1 : -1);
+        if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx)) {
+          const direction = dy < 0 ? 1 : -1;
+          const copy = touch.current.copy;
+          const canScroll = copy && copy.total > copy.height + 2 && (direction > 0
+            ? copy.top + copy.height < copy.total - 2
+            : copy.top > 2);
+          if (!canScroll) go(direction);
+        }
         touch.current = null;
       }}>
       <div className="story-media" key={product.id}>
@@ -87,7 +123,7 @@ export function ReelViewer({ products, startId, locale, onClose }: {
       <div className="story-top"><span className="story-wordmark">THE CORK</span><button ref={closeButton} className="story-icon" type="button" onClick={onClose} aria-label={ui[locale].close}><Icon name="close" /></button></div>
       <div className="story-side">
         {hasVideo && <button className="story-icon" type="button" onClick={() => setPaused((current) => !current)} aria-label={paused ? ui[locale].play : ui[locale].pause}><Icon name={paused ? "play" : "pause"} /></button>}
-        {products.length > 1 && <><span className="story-count">{String(index + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")}</span><button className="story-icon" type="button" aria-label={previous} onClick={() => go(-1)}><Icon name="up" /></button><button className="story-icon" type="button" aria-label={next} onClick={() => go(1)}><Icon name="down" /></button></>}
+        {products.length > 1 && <span className="story-count">{String(index + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")}</span>}
       </div>
       <div className="story-copy" key={product.id + "-copy"} aria-live="polite">
         <h2 id="dish-title">{t(product.name, locale)}</h2>
