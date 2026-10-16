@@ -25,14 +25,15 @@ Production commands for a regular Node server are `npm run build` and `npm start
 
 ## Menu and design
 
-- Cork's turquoise palette has warm light surfaces and a restaurant-black dark mode with restrained green details. The theme follows the device by default and a guest override is saved locally.
-- The restaurant's official wordmark sits beside a small "powered by plately" app credit. Dish rows use small round images, with softer italic ingredients and a View more action revealed only after opening a dish.
-- Expandable categories and dish rows keep the menu uncluttered. Search opens matching categories automatically.
+- Cork's turquoise palette has warm light surfaces by default and a restaurant-black dark mode with restrained green details. A guest's theme choice is saved locally.
+- The restaurant's official wordmark draws itself as a wireframe, then its letters, fork, knife, cork marks, and tagline ease apart and back together in place on the welcome screen and again when the carta opens. A very small "powered by plately" credit types in beside the wordmark and sits even smaller in both footers. The carta heading no longer repeats "THE CORK / WROCŁAW"; the wordmark is the logo that remains. Reduced-motion preferences suppress the animation.
+- Self-hosted Cormorant Garamond and Manrope variable fonts support Polish, English, and Ukrainian. The menu keeps text in one ink color per theme, while green serves as a detail color.
+- Expandable categories show the number of dishes without section ordinals. Dish rows use small round images, with softer italic ingredients and a View more action revealed only after opening a dish.
 - The story viewer uses native vertical scroll snapping for wheel, trackpad, touch, and keyboard input. End slides wrap to the start. A video loads, starts muted, and loops automatically only on the active dish; dishes without video show a still image. Reduced-motion preferences stop automatic playback and shorten transitions.
 - 23 dishes from the September 2026 menu with prices and weights.
 - Beef tartare portions: 100 g / 72 PLN and 200 g / 86 PLN.
 - Optional chicken, prawns and beef additions for Green Plate and porcini risotto.
-- Polish, English and Ukrainian navigation, search, and accessible dish details.
+- Polish, English and Ukrainian navigation, including a Cyrillic Ukrainian language label, and accessible dish details.
 - Preserved all 23 dish posters and eight finished videos. No video plays in the menu list; vertical scrolling or swiping advances through all visible dishes.
 - Used the supplied document's restaurant interior and olive ritual images.
 - The published PDF does not include a dish-by-dish allergen chart. The allergen panel labels EU allergen categories identifiable from named ingredients and directs guests to staff for the complete recipe, sauces, and cross-contact. A kitchen-approved chart is needed before presenting a complete or definitive list.
@@ -47,6 +48,7 @@ The menu is stored in `data/menu.json` and seeded by `src/lib/seed.ts`. On a Nod
 - [Supplied Google document](https://docs.google.com/document/d/1jXTdiSLGzkvJH46dPxmXLfwQrt_mwvdCBDs5bqcwbvo/); all text and eight embedded images reviewed.
 - [Restaurant website](https://thecork.pl/).
 - [Official teal wordmark](https://thecork.pl/wp-content/uploads/2025/09/the_cork_png_04-1.png) and [white wordmark](https://thecork.pl/wp-content/uploads/2025/09/the_cork_png_white_04.png).
+- [Cormorant Garamond](https://github.com/google/fonts/tree/main/ofl/cormorantgaramond) and [Manrope](https://github.com/google/fonts/tree/main/ofl/manrope), both distributed under the SIL Open Font License.
 - [EU allergen categories, Regulation 1169/2011 Annex II](https://eur-lex.europa.eu/eli/reg/2011/1169/oj/eng).
 
 The dish photographs are illustrative generated assets inherited from the earlier project. Translations follow the Polish menu if the PDF translations differ. The restaurant site lists inconsistent Friday hours; the existing 17:00 time was retained.

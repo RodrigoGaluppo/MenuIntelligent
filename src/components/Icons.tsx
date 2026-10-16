@@ -1,6 +1,6 @@
 import type { ReactNode, SVGProps } from "react";
 
-type IconName = "wifi" | "menu" | "phone" | "star" | "external" | "chevron" | "back" | "search" | "close" | "play" | "pause" | "info" | "sun" | "moon";
+type IconName = "wifi" | "menu" | "phone" | "star" | "external" | "chevron" | "back" | "close" | "play" | "pause" | "info" | "sun" | "moon";
 
 export function Icon({ name, ...props }: SVGProps<SVGSVGElement> & { name: IconName }) {
   const shared = { fill: "none", stroke: "currentColor", strokeWidth: 1.7, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
@@ -12,7 +12,6 @@ export function Icon({ name, ...props }: SVGProps<SVGSVGElement> & { name: IconN
     external: <path d="M5 19 19 5M9 5h10v10"/>,
     chevron: <path d="m5 9 7 7 7-7"/>,
     back: <path d="M20 12H4m0 0 6-6m-6 6 6 6"/>,
-    search: <><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></>,
     close: <path d="M5 5 19 19M19 5 5 19"/>,
     play: <path d="m8 5 11 7-11 7V5Z" fill="currentColor" stroke="none"/>,
     pause: <path d="M8 5v14M16 5v14" strokeWidth="3"/>,
