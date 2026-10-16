@@ -1,6 +1,6 @@
 :root{--page:#f8f7f2;--surface:#fffefa;--surface-raised:#fff;--ink:#1b3734;--muted:#70827e;--accent:#187a73;--accent-strong:#0c615b;--accent-soft:#e7f2ee;--line:#dce3df;--gold:#b47a46;--header:rgba(248,247,242,.88);--shadow:0 22px 70px rgba(22,59,54,.12);color-scheme:light}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--page:#0b1919;--surface:#142826;--surface-raised:#1b3330;--ink:#f3f3e9;--muted:#afc2bb;--accent:#93d4c0;--accent-strong:#c2e9d9;--accent-soft:#203b36;--line:#35504b;--gold:#d6aa73;--header:rgba(11,25,25,.88);--shadow:0 24px 80px rgba(0,0,0,.32);color-scheme:dark}}
-:root[data-theme=dark]{--page:#0b1919;--surface:#142826;--surface-raised:#1b3330;--ink:#f3f3e9;--muted:#afc2bb;--accent:#93d4c0;--accent-strong:#c2e9d9;--accent-soft:#203b36;--line:#35504b;--gold:#d6aa73;--header:rgba(11,25,25,.88);--shadow:0 24px 80px rgba(0,0,0,.32);color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--page:#090b0a;--surface:#111512;--surface-raised:#181e1a;--ink:#f4f2eb;--muted:#aeb9b0;--accent:#91b6a0;--accent-strong:#c1dac9;--accent-soft:#1b2920;--line:#303b32;--gold:#c4a579;--header:rgba(9,11,10,.91);--shadow:0 24px 80px rgba(0,0,0,.48);color-scheme:dark}}
+:root[data-theme=dark]{--page:#090b0a;--surface:#111512;--surface-raised:#181e1a;--ink:#f4f2eb;--muted:#aeb9b0;--accent:#91b6a0;--accent-strong:#c1dac9;--accent-soft:#1b2920;--line:#303b32;--gold:#c4a579;--header:rgba(9,11,10,.91);--shadow:0 24px 80px rgba(0,0,0,.48);color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 html,body{margin:0;min-height:100%;background:var(--page);color:var(--ink)}
@@ -17,7 +17,7 @@ svg{display:block;flex:none}
 html:active-view-transition .screen-enter{animation:none}
 ::view-transition-old(root){animation:root-fade-out .22s ease-in both}
 ::view-transition-new(root){animation:root-fade-in .38s cubic-bezier(.22,1,.36,1) both}
-::view-transition-group(cork-mark){animation-duration:.46s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+::view-transition-group(cork-brand){animation-duration:.46s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
 @keyframes root-fade-out{to{opacity:0}}
 @keyframes root-fade-in{from{opacity:0}to{opacity:1}}
 .language-switch{display:flex;align-items:center;gap:3px}
@@ -29,10 +29,16 @@ html:active-view-transition .screen-enter{animation:none}
 .icon-button svg{width:21px;height:21px}
 
 .brand-lockup{display:flex;align-items:center;gap:18px;min-width:0}
-.cork-identity{display:flex;align-items:center;gap:9px;min-width:0;color:var(--ink);font-size:21px;font-weight:800;letter-spacing:-.065em;line-height:1;white-space:nowrap}
-.cork-identity svg{width:41px;height:41px;color:var(--accent)}
-.brand-lockup .cork-identity svg{view-transition-name:cork-mark}
-.cork-identity small{display:block;margin-top:5px;color:var(--accent);font-size:9px;font-weight:700;letter-spacing:.15em}
+.cork-identity{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;line-height:1}
+.cork-identity .cork-logo{width:137px}
+.brand-lockup .cork-logo{view-transition-name:cork-brand}
+.cork-identity small{display:block;color:var(--accent);font-size:8px;font-weight:700;letter-spacing:.19em}
+.cork-logo{display:block;flex:none}
+.cork-logo img{display:block;width:100%;height:auto}
+.cork-logo-dark{display:none!important}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .cork-logo-light{display:none}:root:not([data-theme=light]) .cork-logo-dark{display:block!important}}
+:root[data-theme=dark] .cork-logo-light{display:none}
+:root[data-theme=dark] .cork-logo-dark{display:block!important}
 .plately-credit{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:max-content;padding-left:16px;border-left:1px solid var(--line);line-height:1}
 .plately-caption{color:var(--muted);font-size:9px;font-weight:600;letter-spacing:.03em}
 .plately-signature{display:flex;align-items:center;gap:5px;color:var(--accent)}
@@ -46,14 +52,12 @@ html:active-view-transition .screen-enter{animation:none}
 .welcome-content{width:min(100%,800px);margin:auto;padding:46px 0}
 .brand-line{display:block;width:56px;height:4px;margin-bottom:29px;border-radius:4px;background:var(--accent)}
 .brand-hero-row{display:flex;align-items:center;gap:clamp(8px,1.6vw,16px);min-width:0}
-.hero-cork-mark{width:clamp(46px,6vw,73px);height:clamp(46px,6vw,73px);color:var(--accent)}
-.hero-cork-mark{view-transition-name:cork-mark}
-.brand-mark h1{margin:0;font-size:clamp(55px,8vw,106px);font-weight:800;line-height:.9;letter-spacing:-.095em;white-space:nowrap}
+.brand-mark h1{margin:0;min-width:0}
+.hero-cork-logo{width:clamp(210px,65vw,620px);view-transition-name:cork-brand}
 .brand-hero-row .plately-credit{align-self:center;margin-left:auto;padding-left:16px}
 .brand-hero-row .plately-credit strong{font-size:20px}
 .brand-hero-row .plately-caption{font-size:10px}
 .brand-hero-row .plately-mark{width:20px;height:20px}
-.brand-mark p{margin:21px 0 0;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.21em;text-transform:uppercase}
 .welcome-address{margin:22px 0 0;color:var(--muted);font-size:13px}
 .guest-actions{margin-top:50px;border-top:1px solid var(--line)}
 .guest-action{width:100%;min-height:75px;display:flex;align-items:center;gap:18px;padding:10px 10px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;color:var(--ink);text-align:left;transition:background-color .3s,color .3s,padding .35s cubic-bezier(.22,1,.36,1)}
@@ -123,21 +127,22 @@ html:active-view-transition .screen-enter{animation:none}
 .menu-empty{padding:55px 0;color:var(--muted);font-size:15px}
 .menu-footer{max-width:1110px;margin:56px auto 0;padding:22px 30px 36px;border-top:1px solid var(--line);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.2em}
 
-.story-overlay{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(4,20,20,.88);animation:overlay-enter .38s ease both}
+.story-overlay{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(0,0,0,.93);animation:overlay-enter .38s ease both}
 @keyframes overlay-enter{from{opacity:0}to{opacity:1}}
-.story-viewer{position:relative;isolation:isolate;width:min(100vw,540px);height:min(100dvh,920px);overflow:hidden;border-radius:23px;background:#193c39;color:#fff;box-shadow:0 25px 95px rgba(0,0,0,.35)}
+.story-viewer{position:relative;isolation:isolate;width:min(100vw,540px);height:min(100dvh,920px);overflow:hidden;border-radius:23px;background:#0a0e0b;color:#fff;box-shadow:0 25px 95px rgba(0,0,0,.45)}
 .story-scroller{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-snap-type:y mandatory;scrollbar-width:none;touch-action:pan-y}
 .story-scroller::-webkit-scrollbar{display:none}
-.story-slide{position:relative;height:100%;min-height:100%;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always;background:#193c39}
+.story-slide{position:relative;height:100%;min-height:100%;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always;background:#0a0e0b}
 .story-media,.story-media img,.story-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .story-media img,.story-media video{filter:saturate(.91) contrast(1.02)}
 .story-media video{animation:video-in .42s ease both}
 @keyframes video-in{from{opacity:0}to{opacity:1}}
-.story-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,25,24,.5),transparent 28%,rgba(4,25,24,.12) 44%,rgba(4,25,24,.94) 100%);pointer-events:none}
+.story-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent 28%,rgba(0,0,0,.12) 44%,rgba(0,0,0,.94) 100%);pointer-events:none}
 .story-chrome{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:18px 21px;pointer-events:none}
-.story-wordmark{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:800;letter-spacing:-.07em;text-shadow:0 2px 13px rgba(0,0,0,.25)}
-.story-wordmark svg{width:32px;height:32px}
-.story-icon{width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.55);border-radius:15px;background:rgba(16,48,46,.34);color:white;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);pointer-events:auto;transition:background-color .3s,transform .3s}
+.story-cork-logo{width:130px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.story-cork-logo .cork-logo-light{display:none!important}
+.story-cork-logo .cork-logo-dark{display:block!important}
+.story-icon{width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.55);border-radius:15px;background:rgba(0,0,0,.44);color:white;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);pointer-events:auto;transition:background-color .3s,transform .3s}
 .story-icon:hover{background:rgba(22,122,113,.8);transform:scale(1.05)}
 .story-icon svg{width:21px;height:21px}
 .story-slide-top{position:absolute;top:84px;left:22px;right:22px;display:flex;align-items:center;justify-content:space-between;color:rgba(255,255,255,.88);font-size:11px;font-weight:700;letter-spacing:.14em}
@@ -157,7 +162,12 @@ html:active-view-transition .screen-enter{animation:none}
 .story-allergens summary svg{width:16px;height:16px}
 .story-allergens summary svg:last-child{width:14px;height:14px;transition:transform .3s}
 .story-allergens[open] summary svg:last-child{transform:rotate(180deg)}
-.story-allergens p{max-width:38ch;margin:3px 0 0;line-height:1.45}
+.story-allergens p{max-width:46ch;margin:8px 0 0;line-height:1.5}
+.story-allergen-content{padding:12px 14px 15px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(0,0,0,.38);backdrop-filter:blur(12px)}
+.story-allergen-heading{display:block;color:#d9eee0;font-size:11px;font-weight:700;letter-spacing:.02em}
+.story-allergen-tags{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 0;padding:0;list-style:none}
+.story-allergen-tags li{padding:7px 10px;border:1px solid rgba(197,227,208,.4);border-radius:9px;background:rgba(145,182,160,.16);color:#f5fff7;font-size:11px;font-weight:650}
+.story-allergens .story-allergen-note{margin-top:13px;color:rgba(255,255,255,.75)}
 .story-rail{position:absolute;z-index:4;top:50%;right:14px;display:flex;flex-direction:column;gap:5px;transform:translateY(-50%);pointer-events:none}
 .story-rail span{width:3px;height:12px;border-radius:3px;background:rgba(255,255,255,.42);transition:height .32s,background-color .32s}
 .story-rail span.is-active{height:24px;background:#fff}
@@ -173,12 +183,10 @@ html:active-view-transition .screen-enter{animation:none}
  .welcome-content{padding:32px 0}
  .brand-line{width:46px;margin-bottom:22px}
  .brand-hero-row{gap:9px}
- .hero-cork-mark{width:39px;height:39px}
- .brand-mark h1{font-size:clamp(34px,9.7vw,70px)}
+ .hero-cork-logo{width:clamp(210px,65vw,420px)}
  .brand-hero-row .plately-credit{padding-left:11px}
  .brand-hero-row .plately-credit strong{font-size:14px}
  .brand-hero-row .plately-mark{width:15px;height:15px}
- .brand-mark p{font-size:10px;letter-spacing:.14em;margin-top:16px}
  .welcome-address{font-size:12px}
  .guest-actions{margin-top:37px}
  .guest-action{min-height:73px;gap:14px}
@@ -186,8 +194,8 @@ html:active-view-transition .screen-enter{animation:none}
  .welcome-footer{font-size:9px;letter-spacing:.08em}
  .menu-header{min-height:72px;padding:6px 4%;gap:10px}
  .brand-lockup{gap:10px}
- .cork-identity{gap:6px;font-size:17px}
- .cork-identity svg{width:34px;height:34px}
+ .cork-identity{gap:2px}
+ .cork-identity .cork-logo{width:105px}
  .cork-identity small{font-size:7px;letter-spacing:.1em}
  .brand-lockup .plately-credit{padding-left:8px;gap:2px}
  .brand-lockup .plately-credit>span{font-size:8px}
@@ -223,11 +231,10 @@ html:active-view-transition .screen-enter{animation:none}
  .story-rail{right:9px}
 }
 @media(max-width:390px){
- .brand-mark h1{font-size:clamp(34px,9.2vw,38px)}
+ .hero-cork-logo{width:clamp(210px,64vw,250px)}
  .brand-hero-row .plately-credit{border:0;padding-left:0}
  .brand-lockup{gap:7px}
- .cork-identity{font-size:15px}
- .cork-identity svg{width:31px;height:31px}
+ .cork-identity .cork-logo{width:101px}
  .brand-lockup .plately-credit{padding-left:7px}
  .brand-lockup .plately-credit strong{font-size:13px}
  .icon-button{width:42px;height:42px}
@@ -236,8 +243,7 @@ html:active-view-transition .screen-enter{animation:none}
 }
 @media(max-width:350px){
  .brand-hero-row{gap:6px}
- .hero-cork-mark{width:32px;height:32px}
- .brand-mark h1{font-size:33px}
+ .hero-cork-logo{width:210px}
  .brand-hero-row .plately-caption{font-size:7px}
  .brand-hero-row .plately-credit strong{font-size:12px}
  .brand-hero-row .plately-mark{width:13px;height:13px}
@@ -248,9 +254,10 @@ html:active-view-transition .screen-enter{animation:none}
  .brand-lockup .plately-mark{display:none}
  .brand-lockup .plately-credit strong{font-size:12px}
  .cork-identity small{display:none}
+ .cork-identity .cork-logo{width:88px}
 }
 @media(prefers-reduced-motion:reduce){
  html{scroll-behavior:auto}
  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
- ::view-transition-old(root),::view-transition-new(root),::view-transition-group(cork-mark){animation-duration:.01ms!important}
+ ::view-transition-old(root),::view-transition-new(root),::view-transition-group(cork-brand){animation-duration:.01ms!important}
 }

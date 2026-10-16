@@ -1,6 +1,6 @@
 # THE CORK — seasonal visual menu
 
-Visitor menu for THE CORK R32, based on the September 2026 menu and the supplied Google document.
+Visitor menu for THE CORK in Wrocław, based on the September 2026 menu and the supplied Google document.
 
 ## GitHub Pages
 
@@ -25,17 +25,17 @@ Production commands for a regular Node server are `npm run build` and `npm start
 
 ## Menu and design
 
-- Cork's turquoise palette now has warm light surfaces and a deep green dark mode. The theme follows the device by default and a guest override is saved locally.
-- The Cork monogram and wordmark sit beside a small "powered by plately" app credit. Dish rows use small round images, with softer italic ingredients and a View more action revealed only after opening a dish.
+- Cork's turquoise palette has warm light surfaces and a restaurant-black dark mode with restrained green details. The theme follows the device by default and a guest override is saved locally.
+- The restaurant's official wordmark sits beside a small "powered by plately" app credit. Dish rows use small round images, with softer italic ingredients and a View more action revealed only after opening a dish.
 - Expandable categories and dish rows keep the menu uncluttered. Search opens matching categories automatically.
-- The story viewer uses native vertical scroll snapping for wheel, trackpad, touch, and keyboard input. End slides wrap to the start, while only the active dish loads its video. Reduced-motion preferences stop automatic playback and shorten transitions.
+- The story viewer uses native vertical scroll snapping for wheel, trackpad, touch, and keyboard input. End slides wrap to the start. A video loads, starts muted, and loops automatically only on the active dish; dishes without video show a still image. Reduced-motion preferences stop automatic playback and shorten transitions.
 - 23 dishes from the September 2026 menu with prices and weights.
 - Beef tartare portions: 100 g / 72 PLN and 200 g / 86 PLN.
 - Optional chicken, prawns and beef additions for Green Plate and porcini risotto.
 - Polish, English and Ukrainian navigation, search, and accessible dish details.
 - Preserved all 23 dish posters and eight finished videos. No video plays in the menu list; vertical scrolling or swiping advances through all visible dishes.
 - Used the supplied document's restaurant interior and olive ritual images.
-- The PDF does not list allergens, so the menu directs guests to staff rather than making up allergen details.
+- The published PDF does not include a dish-by-dish allergen chart. The allergen panel labels EU allergen categories identifiable from named ingredients and directs guests to staff for the complete recipe, sauces, and cross-contact. A kitchen-approved chart is needed before presenting a complete or definitive list.
 - Reflected VAT and the 10% charge for groups of six or more.
 - Removed invented guest Wi-Fi credentials.
 
@@ -46,6 +46,8 @@ The menu is stored in `data/menu.json` and seeded by `src/lib/seed.ts`. On a Nod
 - [September 2026 menu](https://thecork.pl/wp-content/uploads/2026/09/Menu-09.2026.pdf), also saved to `public/menu-september-2026.pdf`.
 - [Supplied Google document](https://docs.google.com/document/d/1jXTdiSLGzkvJH46dPxmXLfwQrt_mwvdCBDs5bqcwbvo/); all text and eight embedded images reviewed.
 - [Restaurant website](https://thecork.pl/).
+- [Official teal wordmark](https://thecork.pl/wp-content/uploads/2025/09/the_cork_png_04-1.png) and [white wordmark](https://thecork.pl/wp-content/uploads/2025/09/the_cork_png_white_04.png).
+- [EU allergen categories, Regulation 1169/2011 Annex II](https://eur-lex.europa.eu/eli/reg/2011/1169/oj/eng).
 
 The dish photographs are illustrative generated assets inherited from the earlier project. Translations follow the Polish menu if the PDF translations differ. The restaurant site lists inconsistent Friday hours; the existing 17:00 time was retained.
 

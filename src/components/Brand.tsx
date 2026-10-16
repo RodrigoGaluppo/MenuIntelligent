@@ -1,10 +1,13 @@
-export function CorkMark({ className = "" }: { className?: string }) {
-  return <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
-    <circle cx="24" cy="24" r="21" stroke="currentColor" strokeWidth="1.25" opacity=".7" />
-    <path d="M32.7 15.8a13 13 0 1 0 .1 16.3" stroke="currentColor" strokeWidth="3.1" strokeLinecap="round" />
-    <path d="M31.6 12.5c3.9-2.9 7.1-2 8.5-1.1-1.1 4.1-3.5 6.1-7.3 6.4" fill="currentColor" />
-    <path d="M34.8 34.6h4.3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-  </svg>;
+import { assetPath } from "@/lib/assets";
+
+export function CorkLogo({ className = "" }: { className?: string }) {
+  return <span className={"cork-logo " + className} role="img" aria-label="The Cork restaurant, Wrocław">
+    {/* The restaurant's own wordmark has a teal and a white version. */}
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img className="cork-logo-light" src={assetPath("/branding/the-cork-teal.png")} alt="" />
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img className="cork-logo-dark" src={assetPath("/branding/the-cork-white.png")} alt="" />
+  </span>;
 }
 
 function PlatelyMark() {
@@ -20,9 +23,6 @@ export function PlatelyCredit() {
   return <div className="plately-credit"><span className="plately-caption">powered by</span><span className="plately-signature"><PlatelyMark /><strong>plately<span className="plately-dot">.</span></strong></span></div>;
 }
 
-export function BrandLockup({ compact = false }: { compact?: boolean }) {
-  return <div className={"brand-lockup " + (compact ? "brand-lockup-compact" : "")}>
-    <div className="cork-identity"><CorkMark /><span>THE CORK<small>R32 · WROCŁAW</small></span></div>
-    <PlatelyCredit />
-  </div>;
+export function BrandLockup() {
+  return <div className="brand-lockup"><div className="cork-identity"><CorkLogo /><small>WROCŁAW</small></div><PlatelyCredit /></div>;
 }

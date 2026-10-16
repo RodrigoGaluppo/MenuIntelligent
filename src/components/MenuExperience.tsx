@@ -7,7 +7,7 @@ import { LOCALES, categoryNames, t, ui } from "@/lib/i18n";
 import { Icon } from "./Icons";
 import { VideoCard } from "./VideoCard";
 import { ReelViewer } from "./ReelViewer";
-import { BrandLockup, CorkMark, PlatelyCredit } from "./Brand";
+import { BrandLockup, CorkLogo, PlatelyCredit } from "./Brand";
 
 const CATEGORIES: CategoryId[] = ["ritual", "starters", "snacks", "mains", "meat", "seafood", "desserts"];
 const guestCopy: Record<Locale, { wifi: string; wifiHelp: string; menu: string; waiter: string; reviews: string; back: string; network: string; password: string; categories: string; search: string }> = {
@@ -95,7 +95,7 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
   return <div className="guest-app">
     {screen === "welcome" ? <main className="welcome-screen screen-enter">
       <header className="welcome-top">
-        <span className="eyebrow">R32 · WROCŁAW</span>
+        <span className="eyebrow">WROCŁAW</span>
         <div className="welcome-controls"><button className="icon-button theme-button" type="button" onClick={toggleTheme} aria-label={themeLabel}><Icon name={dark ? "sun" : "moon"} /></button><div className="language-switch" role="group" aria-label={copy.language}>
           {LOCALES.map((language) => <button key={language.id} type="button" aria-pressed={locale === language.id} onClick={() => setLocale(language.id)}>{language.label}</button>)}
         </div></div>
@@ -103,8 +103,7 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
       <section className="welcome-content">
         <div className="brand-mark" aria-label="THE CORK">
           <span className="brand-line" />
-          <div className="brand-hero-row"><CorkMark className="hero-cork-mark" /><h1>THE CORK</h1><PlatelyCredit /></div>
-          <p>{restaurant.tagline.en}</p>
+          <div className="brand-hero-row"><h1><CorkLogo className="hero-cork-logo" /></h1><PlatelyCredit /></div>
         </div>
         <p className="welcome-address">{t(restaurant.address, locale)}</p>
         <nav className="guest-actions" aria-label={copy.menu}>
@@ -123,11 +122,11 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
           <a className="guest-action" href={reviewsUrl} target="_blank" rel="noopener noreferrer"><span className="action-icon"><Icon name="star" /></span><span className="action-label">{guest.reviews}</span><Icon className="action-trail" name="external" /></a>
         </nav>
       </section>
-      <footer className="welcome-footer"><span>THE CORK · R32</span><a href="https://thecork.pl" target="_blank" rel="noopener noreferrer">THECORK.PL</a></footer>
+      <footer className="welcome-footer"><span>THE CORK · WROCŁAW</span><a href="https://thecork.pl" target="_blank" rel="noopener noreferrer">THECORK.PL</a></footer>
     </main> : <main className="menu-screen screen-enter">
       <header className="menu-header">
         <button type="button" className="icon-button back-button" onClick={() => { switchScreen("welcome"); setWifiOpen(false); }} aria-label={guest.back}><Icon name="back" /></button>
-        <BrandLockup compact />
+        <BrandLockup />
         <div className="menu-tools">
           <div className="language-switch desktop-languages" role="group" aria-label={copy.language}>{LOCALES.map((language) => <button key={language.id} type="button" aria-pressed={locale === language.id} onClick={() => setLocale(language.id)}>{language.label}</button>)}</div>
           <button type="button" className="icon-button theme-button" onClick={toggleTheme} aria-label={themeLabel}><Icon name={dark ? "sun" : "moon"} /></button>
@@ -136,7 +135,7 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
       </header>
       <div className="mobile-languages language-switch" role="group" aria-label={copy.language}>{LOCALES.map((language) => <button key={language.id} type="button" aria-pressed={locale === language.id} onClick={() => setLocale(language.id)}>{language.label}</button>)}</div>
       {searchOpen && <div className="search-panel"><Icon name="search" /><input ref={searchInput} value={query} onChange={(event) => changeQuery(event.target.value)} placeholder={copy.search} aria-label={guest.search} type="search" /></div>}
-      <div className="menu-intro"><span className="eyebrow">THE CORK / R32</span><h1>{copy.menu}</h1><span className="menu-intro-count">{String(visible.length).padStart(2, "0")}</span></div>
+      <div className="menu-intro"><span className="eyebrow">THE CORK / WROCŁAW</span><h1>{copy.menu}</h1><span className="menu-intro-count">{String(visible.length).padStart(2, "0")}</span></div>
       <section className="menu-sections" aria-label={guest.categories}>
         {sections.length === 0 ? <p className="menu-empty">{copy.empty}</p> : sections.map(({ category, products: categoryProducts }, index) => {
           const open = openCategories.includes(category);
@@ -150,7 +149,7 @@ export function MenuExperience({ restaurant, products }: { restaurant: Restauran
           </section>;
         })}
       </section>
-      <footer className="menu-footer">THE CORK · R32 · WROCŁAW</footer>
+      <footer className="menu-footer">THE CORK · WROCŁAW</footer>
     </main>}
     {reel && <ReelViewer products={visible} startId={reel.id} locale={locale} onClose={() => setReel(null)} />}
   </div>;

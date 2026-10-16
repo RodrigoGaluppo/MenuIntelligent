@@ -5,20 +5,19 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import type { Locale, Product } from "@/lib/types";
 import { money, t, ui } from "@/lib/i18n";
 import { assetPath } from "@/lib/assets";
+import { allergenCopy, allergenLabels, hasRestaurantAllergenList, listedAllergens } from "@/lib/allergens";
 import { Icon } from "./Icons";
-import { CorkMark } from "./Brand";
+import { CorkLogo } from "./Brand";
 
 function StorySlide({ product, locale, active, number, total, reducedMotion }: {
   product: Product; locale: Locale; active: boolean; number: number; total: number; reducedMotion: boolean;
 }) {
-  const [paused, setPaused] = useState(false);
-  const [manualPlay, setManualPlay] = useState(false);
   const [failed, setFailed] = useState(false);
   const [variant, setVariant] = useState(0);
   const [pageVisible, setPageVisible] = useState(true);
   const video = useRef<HTMLVideoElement>(null);
   const hasVideo = Boolean(product.video) && !failed;
-  const playing = active && pageVisible && hasVideo && (manualPlay || (!paused && !reducedMotion));
+  const namedAllergens = listedAllergens(product);
   const price = product.variants?.[variant]?.price ?? product.price;
   const weight = product.variants?.[variant]?.label ?? product.weight;
 
@@ -34,41 +33,39 @@ function StorySlide({ product, locale, active, number, total, reducedMotion }: {
     let cancelled = false;
     if (!active) {
       video.current?.pause();
-      setPaused(false);
-      setManualPlay(false);
       setVariant(0);
       return;
     }
     if (!video.current) return;
-    if (!playing) video.current.pause();
-    else video.current.play().catch(() => {
-      if (!cancelled) {
-        setPaused(true);
-        setManualPlay(false);
-      }
-    });
+    if (!pageVisible || reducedMotion) video.current.pause();
+    else video.current.play().catch(() => { if (!cancelled) setFailed(true); });
     return () => { cancelled = true; };
-  }, [active, playing]);
+  }, [active, pageVisible, reducedMotion]);
 
   return <section className="story-slide" aria-hidden={!active} inert={!active}>
     <div className="story-media">
       <img src={assetPath(product.poster)} alt="" loading={active ? "eager" : "lazy"} decoding="async" />
-      {active && hasVideo && <video ref={video} src={assetPath(product.video!)} poster={assetPath(product.poster)} muted loop playsInline preload="metadata" onError={() => setFailed(true)} />}
+      {active && hasVideo && <video ref={video} src={assetPath(product.video!)} poster={assetPath(product.poster)} muted loop playsInline autoPlay={!reducedMotion} preload="metadata" onError={() => setFailed(true)} />}
     </div>
     <div className="story-shade" />
-    <div className="story-slide-top"><span>{String(number).padStart(2, "0")} <span className="story-count-divider">/</span> {String(total).padStart(2, "0")}</span>
-      {hasVideo && <button className="story-icon" type="button" onClick={() => {
-        if (reducedMotion) setManualPlay((current) => !current);
-        else setPaused((current) => !current);
-      }} aria-label={playing ? ui[locale].pause : ui[locale].play}><Icon name={playing ? "pause" : "play"} /></button>}
-    </div>
+    <div className="story-slide-top"><span>{String(number).padStart(2, "0")} <span className="story-count-divider">/</span> {String(total).padStart(2, "0")}</span></div>
     <div className="story-copy">
-      <span className="story-kicker">THE CORK · R32</span>
+      <span className="story-kicker">THE CORK · WROCŁAW</span>
       <h2>{t(product.name, locale)}</h2>
       <p className="story-ingredients">{t(product.ingredients, locale)}</p>
       <div className="story-price"><strong>{money(price, product.currency)}</strong>{weight && <span>· {weight}</span>}</div>
       {product.variants && <div className="story-variants" role="group" aria-label={locale === "pl" ? "Porcja" : locale === "en" ? "Portion" : "Порція"}>{product.variants.map((item, i) => <button key={item.label} type="button" aria-pressed={variant === i} onClick={() => setVariant(i)}>{item.label}</button>)}</div>}
-      <details className="story-allergens"><summary><Icon name="info" />{ui[locale].allergens}<Icon name="chevron" /></summary><p>{t(product.allergens, locale)}</p></details>
+      <details className="story-allergens"><summary><Icon name="info" />{ui[locale].allergens}<Icon name="chevron" /></summary>
+        <div className="story-allergen-content">
+          {hasRestaurantAllergenList(product) ? <p>{t(product.allergens, locale)}</p> : <>
+            <span className="story-allergen-heading">{allergenCopy[locale].listed}</span>
+            {namedAllergens.length ? <ul className="story-allergen-tags">{namedAllergens.map((id) => <li key={id}>{allergenLabels[id][locale]}</li>)}</ul> : <p>{allergenCopy[locale].none}</p>}
+            {product.addOns?.some((addon) => /prawn/i.test(addon.label.en)) && <p>{allergenCopy[locale].optionalPrawns}</p>}
+            {product.id === "ice-cream-olive" && <p>{allergenCopy[locale].optionalPistachio}</p>}
+            <p className="story-allergen-note">{allergenCopy[locale].check}</p>
+          </>}
+        </div>
+      </details>
     </div>
   </section>;
 }
@@ -214,7 +211,7 @@ export function ReelViewer({ products, startId, locale, onClose }: {
           else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
         }
       }}>
-      <div className="story-chrome"><div className="story-wordmark"><CorkMark /> THE CORK</div><button ref={closeButton} className="story-icon" type="button" onClick={onClose} aria-label={ui[locale].close}><Icon name="close" /></button></div>
+      <div className="story-chrome"><CorkLogo className="story-cork-logo" /><button ref={closeButton} className="story-icon" type="button" onClick={onClose} aria-label={ui[locale].close}><Icon name="close" /></button></div>
       <div ref={scroller} className="story-scroller" onWheel={(event) => {
         if (!loop || !event.deltaY || !scroller.current) return;
         const node = scroller.current;
