@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
-  return <html lang="pl"><body>{children}</body></html>;
+  return <html lang="pl" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{__html: "try{var theme=localStorage.getItem('cork-theme');if(theme==='light'||theme==='dark')document.documentElement.dataset.theme=theme}catch(e){}"}} /></head><body>{children}</body></html>;
 }

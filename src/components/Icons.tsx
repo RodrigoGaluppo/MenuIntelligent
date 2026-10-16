@@ -1,6 +1,6 @@
 import type { ReactNode, SVGProps } from "react";
 
-type IconName = "wifi" | "menu" | "phone" | "star" | "external" | "chevron" | "back" | "search" | "close" | "play" | "pause" | "info";
+type IconName = "wifi" | "menu" | "phone" | "star" | "external" | "chevron" | "back" | "search" | "close" | "play" | "pause" | "info" | "sun" | "moon";
 
 export function Icon({ name, ...props }: SVGProps<SVGSVGElement> & { name: IconName }) {
   const shared = { fill: "none", stroke: "currentColor", strokeWidth: 1.7, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
@@ -17,6 +17,8 @@ export function Icon({ name, ...props }: SVGProps<SVGSVGElement> & { name: IconN
     play: <path d="m8 5 11 7-11 7V5Z" fill="currentColor" stroke="none"/>,
     pause: <path d="M8 5v14M16 5v14" strokeWidth="3"/>,
     info: <><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></>,
+    sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></>,
+    moon: <path d="M20.2 15.8A8.7 8.7 0 0 1 8.2 3.8 8.7 8.7 0 1 0 20.2 15.8Z"/>,
   };
   return <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" {...shared} {...props}>{paths[name]}</svg>;
 }

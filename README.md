@@ -25,15 +25,15 @@ Production commands for a regular Node server are `npm run build` and `npm start
 
 ## Menu and design
 
-- White and turquoise palette with THE CORK wordmark in uppercase throughout the visitor experience.
-- Menu cards show a still image and the dish name. Opening a card starts its video; the full-screen story shows ingredients and a quiet price and weight line.
-- Expandable categories keep the menu uncluttered. Search opens matching categories automatically.
-- Larger mobile icon controls, smooth section scrolling, and reduced-motion support.
+- Cork's turquoise palette now has warm light surfaces and a deep green dark mode. The theme follows the device by default and a guest override is saved locally.
+- The Cork monogram and wordmark sit beside a small "powered by plately" app credit. Dish rows use small round images, with softer italic ingredients and a View more action revealed only after opening a dish.
+- Expandable categories and dish rows keep the menu uncluttered. Search opens matching categories automatically.
+- The story viewer uses native vertical scroll snapping for wheel, trackpad, touch, and keyboard input. End slides wrap to the start, while only the active dish loads its video. Reduced-motion preferences stop automatic playback and shorten transitions.
 - 23 dishes from the September 2026 menu with prices and weights.
 - Beef tartare portions: 100 g / 72 PLN and 200 g / 86 PLN.
 - Optional chicken, prawns and beef additions for Green Plate and porcini risotto.
 - Polish, English and Ukrainian navigation, search, and accessible dish details.
-- Preserved all 23 dish posters and eight finished videos. No video plays in the menu grid; vertical scrolling or swiping advances between dishes in the open category.
+- Preserved all 23 dish posters and eight finished videos. No video plays in the menu list; vertical scrolling or swiping advances through all visible dishes.
 - Used the supplied document's restaurant interior and olive ritual images.
 - The PDF does not list allergens, so the menu directs guests to staff rather than making up allergen details.
 - Reflected VAT and the 10% charge for groups of six or more.
@@ -53,10 +53,10 @@ The dish photographs are illustrative generated assets inherited from the earlie
 
 - `npm run lint`, `npx tsc --noEmit`, and `npm run build` pass locally.
 - The GitHub Pages static export was built separately with `GITHUB_PAGES_BASE=/MenuIntelligent` after excluding the Node-only admin and API routes, matching the workflow.
-- Chromium checks at 390 px and 1440 px confirmed the mobile layout has no horizontal overflow, category expansion works, and search filters to a matching dish. A follow-up production-browser check confirmed cards show only a name with no video request, opening a card starts playback, and wheel scrolling and mobile swiping advance through dishes without visible arrow buttons.
+- Chromium checks at 320–1440 px confirmed the compact branding fits without horizontal overflow, product details reveal only when opened, and dark mode remains legible. Reel checks covered first → last → first → second wrapping with wheel and keyboard, resize continuity, reduced motion, focus return on close, and no browser errors.
 - Server admin and external video generation are not deployed to Pages.
 
-The menu UI follows [WCAG 2.2 target sizing guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum) and [reduced-motion guidance](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion). Video loading uses posters and click-to-play in line with [web.dev's video performance guidance](https://web.dev/learn/performance/video-performance).
+The menu UI follows [WCAG 2.2 target sizing guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum), [Apple's motion guidance](https://developer.apple.com/design/human-interface-guidelines/motion), and [Apple's dark mode guidance](https://developer.apple.com/design/human-interface-guidelines/dark-mode). The reel uses [native CSS scroll snapping](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-snap-type) and a [scrollend event](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollend_event) with a timer fallback for older browsers. Video loading uses posters and active-slide playback in line with [web.dev's video performance guidance](https://web.dev/learn/performance/video-performance).
 
 ## Video generation
 

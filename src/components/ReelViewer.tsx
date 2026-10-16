@@ -1,137 +1,248 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Locale, Product } from "@/lib/types";
 import { money, t, ui } from "@/lib/i18n";
 import { assetPath } from "@/lib/assets";
 import { Icon } from "./Icons";
+import { CorkMark } from "./Brand";
 
-function copyCanScroll(target: EventTarget | null, direction: number) {
-  const copy = target instanceof Element ? target.closest<HTMLElement>(".story-copy") : null;
-  if (!copy || copy.scrollHeight <= copy.clientHeight + 2) return false;
-  return direction > 0
-    ? copy.scrollTop + copy.clientHeight < copy.scrollHeight - 2
-    : copy.scrollTop > 2;
+function StorySlide({ product, locale, active, number, total, reducedMotion }: {
+  product: Product; locale: Locale; active: boolean; number: number; total: number; reducedMotion: boolean;
+}) {
+  const [paused, setPaused] = useState(false);
+  const [manualPlay, setManualPlay] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [variant, setVariant] = useState(0);
+  const [pageVisible, setPageVisible] = useState(true);
+  const video = useRef<HTMLVideoElement>(null);
+  const hasVideo = Boolean(product.video) && !failed;
+  const playing = active && pageVisible && hasVideo && (manualPlay || (!paused && !reducedMotion));
+  const price = product.variants?.[variant]?.price ?? product.price;
+  const weight = product.variants?.[variant]?.label ?? product.weight;
+
+  useEffect(() => {
+    if (!active) return;
+    const updateVisibility = () => setPageVisible(!document.hidden);
+    updateVisibility();
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => document.removeEventListener("visibilitychange", updateVisibility);
+  }, [active]);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!active) {
+      video.current?.pause();
+      setPaused(false);
+      setManualPlay(false);
+      setVariant(0);
+      return;
+    }
+    if (!video.current) return;
+    if (!playing) video.current.pause();
+    else video.current.play().catch(() => {
+      if (!cancelled) {
+        setPaused(true);
+        setManualPlay(false);
+      }
+    });
+    return () => { cancelled = true; };
+  }, [active, playing]);
+
+  return <section className="story-slide" aria-hidden={!active} inert={!active}>
+    <div className="story-media">
+      <img src={assetPath(product.poster)} alt="" loading={active ? "eager" : "lazy"} decoding="async" />
+      {active && hasVideo && <video ref={video} src={assetPath(product.video!)} poster={assetPath(product.poster)} muted loop playsInline preload="metadata" onError={() => setFailed(true)} />}
+    </div>
+    <div className="story-shade" />
+    <div className="story-slide-top"><span>{String(number).padStart(2, "0")} <span className="story-count-divider">/</span> {String(total).padStart(2, "0")}</span>
+      {hasVideo && <button className="story-icon" type="button" onClick={() => {
+        if (reducedMotion) setManualPlay((current) => !current);
+        else setPaused((current) => !current);
+      }} aria-label={playing ? ui[locale].pause : ui[locale].play}><Icon name={playing ? "pause" : "play"} /></button>}
+    </div>
+    <div className="story-copy">
+      <span className="story-kicker">THE CORK · R32</span>
+      <h2>{t(product.name, locale)}</h2>
+      <p className="story-ingredients">{t(product.ingredients, locale)}</p>
+      <div className="story-price"><strong>{money(price, product.currency)}</strong>{weight && <span>· {weight}</span>}</div>
+      {product.variants && <div className="story-variants" role="group" aria-label={locale === "pl" ? "Porcja" : locale === "en" ? "Portion" : "Порція"}>{product.variants.map((item, i) => <button key={item.label} type="button" aria-pressed={variant === i} onClick={() => setVariant(i)}>{item.label}</button>)}</div>}
+      <details className="story-allergens"><summary><Icon name="info" />{ui[locale].allergens}<Icon name="chevron" /></summary><p>{t(product.allergens, locale)}</p></details>
+    </div>
+  </section>;
 }
 
 export function ReelViewer({ products, startId, locale, onClose }: {
   products: Product[]; startId: string; locale: Locale; onClose: () => void;
 }) {
   const initialIndex = Math.max(0, products.findIndex((p) => p.id === startId));
-  const [index, setIndex] = useState(initialIndex);
-  const indexRef = useRef(initialIndex);
-  const [paused, setPaused] = useState(false);
-  const [failedId, setFailedId] = useState<string | null>(null);
-  const [variant, setVariant] = useState(0);
+  const loop = products.length > 1;
+  const initialSlot = initialIndex + (loop ? 1 : 0);
+  const [slot, setSlot] = useState(initialSlot);
+  const [reducedMotion, setReducedMotion] = useState(() => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const slotRef = useRef(initialSlot);
+  const scroller = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDivElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
-  const video = useRef<HTMLVideoElement>(null);
-  const touch = useRef<{ x: number; y: number; copy: { top: number; height: number; total: number } | null } | null>(null);
-  const wheel = useRef({ total: 0, last: 0, lockedUntil: 0 });
-  const product = products[index];
+  const settleTimer = useRef<number | undefined>(undefined);
+  const frame = useRef<number | undefined>(undefined);
+  const resetFrame = useRef<number | undefined>(undefined);
+  const navigationTarget = useRef<number | null>(null);
+  const previousHeight = useRef(0);
+  const slides = useMemo(() => loop ? [products[products.length - 1], ...products, products[0]] : products, [products, loop]);
+  const logicalIndex = loop ? (slot - 1 + products.length) % products.length : 0;
 
-  const go = useCallback((direction: number) => {
-    if (products.length < 2) return;
-    const next = Math.max(0, Math.min(products.length - 1, indexRef.current + direction));
-    if (next === indexRef.current) return;
-    indexRef.current = next;
-    setIndex(next);
-    setVariant(0);
-    setFailedId(null);
-    setPaused(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  }, [products.length]);
+  const jumpTo = useCallback((target: number) => {
+    const node = scroller.current;
+    if (!node) return;
+    if (resetFrame.current !== undefined) cancelAnimationFrame(resetFrame.current);
+    node.style.scrollSnapType = "none";
+    node.style.scrollBehavior = "auto";
+    node.scrollTop = target * node.clientHeight;
+    slotRef.current = target;
+    setSlot(target);
+    resetFrame.current = requestAnimationFrame(() => {
+      node.style.scrollSnapType = "";
+      node.style.scrollBehavior = "";
+      resetFrame.current = undefined;
+    });
+  }, []);
+
+  const settle = useCallback(() => {
+    const node = scroller.current;
+    if (!node || !node.clientHeight) return;
+    navigationTarget.current = null;
+    if (!loop) return;
+    const nearest = Math.round(node.scrollTop / node.clientHeight);
+    const target = nearest === 0 ? products.length : nearest === products.length + 1 ? 1 : nearest;
+    // Recenter only after a clone has snapped fully into view. A gesture still in
+    // progress must keep its native momentum and its current visual position.
+    if (target !== nearest && Math.abs(node.scrollTop - nearest * node.clientHeight) < 2) jumpTo(target);
+  }, [jumpTo, loop, products.length]);
+
+  const updateFromScroll = useCallback(() => {
+    const node = scroller.current;
+    if (!node || !node.clientHeight) return;
+    const next = Math.max(0, Math.min(slides.length - 1, Math.round(node.scrollTop / node.clientHeight)));
+    if (next !== slotRef.current) {
+      slotRef.current = next;
+      setSlot(next);
+    }
+  }, [slides.length]);
+
+  useLayoutEffect(() => {
+    const node = scroller.current;
+    if (!node) return;
+    node.scrollTop = initialSlot * node.clientHeight;
+    previousHeight.current = node.clientHeight;
+    const observer = new ResizeObserver(() => {
+      const height = node.clientHeight;
+      if (!height || height === previousHeight.current) return;
+      const progress = previousHeight.current ? node.scrollTop / previousHeight.current : slotRef.current;
+      previousHeight.current = height;
+      if (resetFrame.current !== undefined) cancelAnimationFrame(resetFrame.current);
+      node.style.scrollSnapType = "none";
+      node.style.scrollBehavior = "auto";
+      node.scrollTop = progress * height;
+      resetFrame.current = requestAnimationFrame(() => {
+        node.style.scrollSnapType = "";
+        node.style.scrollBehavior = "";
+        resetFrame.current = undefined;
+      });
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [initialSlot]);
 
   useEffect(() => {
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onMotion = () => setReducedMotion(motion.matches);
+    onMotion();
+    motion.addEventListener("change", onMotion);
     const previousFocus = document.activeElement as HTMLElement | null;
     const oldOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     closeButton.current?.focus();
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPaused(true);
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-      if (event.key === "ArrowUp" || event.key === "PageUp") { event.preventDefault(); go(-1); }
-      if (event.key === "ArrowDown" || event.key === "PageDown") { event.preventDefault(); go(1); }
-      if (event.key === "Tab") {
-        const focusables = dialog.current?.querySelectorAll<HTMLElement>("button, summary");
-        if (!focusables?.length) return;
-        const first = focusables[0], last = focusables[focusables.length - 1];
-        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-      }
-    };
-    window.addEventListener("keydown", onKey);
     return () => {
+      motion.removeEventListener("change", onMotion);
       document.body.style.overflow = oldOverflow;
-      window.removeEventListener("keydown", onKey);
+      window.clearTimeout(settleTimer.current);
+      if (frame.current) cancelAnimationFrame(frame.current);
+      if (resetFrame.current !== undefined) cancelAnimationFrame(resetFrame.current);
       previousFocus?.focus();
     };
-  }, [go, onClose]);
+  }, []);
 
   useEffect(() => {
-    if (!video.current) return;
-    if (paused) video.current.pause();
-    else video.current.play().catch(() => setPaused(true));
-  }, [paused, index]);
+    const node = scroller.current;
+    if (!node) return;
+    const onScrollEnd = () => { window.clearTimeout(settleTimer.current); settle(); };
+    node.addEventListener("scrollend", onScrollEnd);
+    return () => node.removeEventListener("scrollend", onScrollEnd);
+  }, [settle]);
 
-  if (!product) return null;
-  const hasVideo = !!product.video && failedId !== product.id;
-  const price = product.variants?.[variant]?.price ?? product.price;
-  const weight = product.variants?.[variant]?.label ?? product.weight;
-  return <div className="story-overlay" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-    <div ref={dialog} className="story-viewer" role="dialog" aria-modal="true" aria-labelledby="dish-title"
-      onWheel={(event) => {
-        const direction = Math.sign(event.deltaY);
-        if (!direction || copyCanScroll(event.target, direction)) return;
-        const now = performance.now();
-        if (now < wheel.current.lockedUntil) return;
-        wheel.current.total = now - wheel.current.last > 180 ? event.deltaY : wheel.current.total + event.deltaY;
-        wheel.current.last = now;
-        if (Math.abs(wheel.current.total) < 70) return;
-        go(Math.sign(wheel.current.total));
-        wheel.current.total = 0;
-        wheel.current.lockedUntil = now + 650;
-      }}
-      onTouchStart={(event) => {
-        const copy = event.target instanceof Element ? event.target.closest<HTMLElement>(".story-copy") : null;
-        touch.current = {
-          x: event.touches[0].clientX,
-          y: event.touches[0].clientY,
-          copy: copy ? { top: copy.scrollTop, height: copy.clientHeight, total: copy.scrollHeight } : null,
-        };
-      }}
-      onTouchEnd={(event) => {
-        if (!touch.current) return;
-        const dy = event.changedTouches[0].clientY - touch.current.y;
-        const dx = event.changedTouches[0].clientX - touch.current.x;
-        if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx)) {
-          const direction = dy < 0 ? 1 : -1;
-          const copy = touch.current.copy;
-          const canScroll = copy && copy.total > copy.height + 2 && (direction > 0
-            ? copy.top + copy.height < copy.total - 2
-            : copy.top > 2);
-          if (!canScroll) go(direction);
+  const move = useCallback((direction: number) => {
+    const node = scroller.current;
+    if (!node || !loop || navigationTarget.current !== null) return;
+    // Continue an outward gesture from the matching real slide after the clone
+    // has fully settled. Inward gestures can use the native adjacent slide.
+    if (slotRef.current === 0 && direction < 0) {
+      if (node.scrollTop > 1) return;
+      jumpTo(products.length);
+    } else if (slotRef.current === slides.length - 1 && direction > 0) {
+      if (node.scrollTop < node.scrollHeight - node.clientHeight - 1) return;
+      jumpTo(1);
+    }
+    const next = Math.max(0, Math.min(slides.length - 1, slotRef.current + direction));
+    navigationTarget.current = next;
+    node.scrollTo({ top: next * node.clientHeight, behavior: reducedMotion ? "instant" : "smooth" });
+  }, [jumpTo, loop, products.length, slides.length, reducedMotion]);
+
+  if (!products.length) return null;
+  return <div className="story-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+    <div ref={dialog} className="story-viewer" role="dialog" aria-modal="true" aria-label={`${t(products[logicalIndex].name, locale)} · ${logicalIndex + 1} / ${products.length}`}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") { event.preventDefault(); onClose(); }
+        if (event.key === "ArrowUp" || event.key === "PageUp") { event.preventDefault(); move(-1); }
+        if (event.key === "ArrowDown" || event.key === "PageDown") { event.preventDefault(); move(1); }
+        if (event.key === "Tab") {
+          const focusables = Array.from(dialog.current?.querySelectorAll<HTMLElement>("button, summary") ?? []).filter((element) => !element.closest("[inert]"));
+          if (!focusables.length) return;
+          const first = focusables[0], last = focusables[focusables.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
         }
-        touch.current = null;
       }}>
-      <div className="story-media" key={product.id}>
-        {hasVideo
-          ? <video ref={video} src={assetPath(product.video!)} poster={assetPath(product.poster)} muted loop playsInline autoPlay preload="metadata" onError={() => setFailedId(product.id)} />
-          : <img src={assetPath(product.poster)} alt={t(product.name, locale)} />}
+      <div className="story-chrome"><div className="story-wordmark"><CorkMark /> THE CORK</div><button ref={closeButton} className="story-icon" type="button" onClick={onClose} aria-label={ui[locale].close}><Icon name="close" /></button></div>
+      <div ref={scroller} className="story-scroller" onWheel={(event) => {
+        if (!loop || !event.deltaY || !scroller.current) return;
+        const node = scroller.current;
+        const copy = event.target instanceof Element ? event.target.closest<HTMLElement>(".story-copy") : null;
+        if (copy && copy.scrollHeight > copy.clientHeight + 2) {
+          const canScroll = event.deltaY > 0
+            ? copy.scrollTop + copy.clientHeight < copy.scrollHeight - 2
+            : copy.scrollTop > 2;
+          if (canScroll) return;
+        }
+        // Give the next wheel gesture room to travel past either cloned edge.
+        if (event.deltaY < 0 && node.scrollTop <= 1) jumpTo(products.length);
+        else if (event.deltaY > 0 && node.scrollTop >= node.scrollHeight - node.clientHeight - 1) jumpTo(1);
+      }} onTouchStart={() => {
+        if (!loop || !scroller.current) return;
+        const node = scroller.current;
+        if (node.scrollTop <= 1) jumpTo(products.length);
+        else if (node.scrollTop >= node.scrollHeight - node.clientHeight - 1) jumpTo(1);
+      }} onScroll={() => {
+        if (frame.current) cancelAnimationFrame(frame.current);
+        frame.current = requestAnimationFrame(updateFromScroll);
+        window.clearTimeout(settleTimer.current);
+        settleTimer.current = window.setTimeout(settle, 240);
+      }}>
+        {slides.map((product, i) => <StorySlide key={`${i}-${product.id}`} product={product} locale={locale} active={slot === i} number={loop ? ((i - 1 + products.length) % products.length) + 1 : 1} total={products.length} reducedMotion={reducedMotion} />)}
       </div>
-      <div className="story-shade" />
-      <div className="story-top"><span className="story-wordmark">THE CORK</span><button ref={closeButton} className="story-icon" type="button" onClick={onClose} aria-label={ui[locale].close}><Icon name="close" /></button></div>
-      <div className="story-side">
-        {hasVideo && <button className="story-icon" type="button" onClick={() => setPaused((current) => !current)} aria-label={paused ? ui[locale].play : ui[locale].pause}><Icon name={paused ? "play" : "pause"} /></button>}
-        {products.length > 1 && <span className="story-count">{String(index + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")}</span>}
-      </div>
-      <div className="story-copy" key={product.id + "-copy"} aria-live="polite">
-        <h2 id="dish-title">{t(product.name, locale)}</h2>
-        <p className="story-ingredients">{t(product.ingredients, locale)}</p>
-        <p className="story-price">{money(price, product.currency)}{weight && <span>· {weight}</span>}</p>
-        {product.variants && <div className="story-variants" role="group" aria-label={locale === "pl" ? "Porcja" : locale === "en" ? "Portion" : "Порція"}>{product.variants.map((item, i) => <button key={item.label} type="button" aria-pressed={variant === i} onClick={() => setVariant(i)}>{item.label}</button>)}</div>}
-        <details className="story-allergens"><summary><Icon name="info" />{ui[locale].allergens}</summary><p>{t(product.allergens, locale)}</p></details>
-      </div>
+      {loop && <div className="story-rail" aria-hidden="true">{products.map((product, i) => <span key={product.id} className={i === logicalIndex ? "is-active" : ""} />)}</div>}
+      {loop && <div className="story-hint" aria-hidden="true">{locale === "pl" ? "Przewiń, aby odkrywać" : locale === "en" ? "Scroll to explore" : "Гортайте, щоб відкрити"}<Icon name="chevron" /></div>}
     </div>
   </div>;
 }
