@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/cormorant-garamond";
+import "@fontsource-variable/cormorant-garamond/wght-italic.css";
+import "@fontsource-variable/manrope";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
-  return <html lang="pl" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{__html: "try{var theme=localStorage.getItem('cork-theme');if(theme==='light'||theme==='dark')document.documentElement.dataset.theme=theme}catch(e){}"}} /></head><body>{children}</body></html>;
+  return <html lang="pl" data-theme="light" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{__html: "try{var theme=localStorage.getItem('cork-theme');document.documentElement.dataset.theme=theme==='dark'?'dark':'light'}catch(e){}"}} /></head><body>{children}</body></html>;
 }

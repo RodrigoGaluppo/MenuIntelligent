@@ -25,14 +25,14 @@ Production commands for a regular Node server are `npm run build` and `npm start
 
 ## Menu and design
 
-- Cork's turquoise palette has warm light surfaces and a restaurant-black dark mode with restrained green details. The theme follows the device by default and a guest override is saved locally.
-- The restaurant's official wordmark sits beside a small "powered by plately" app credit. Dish rows use small round images, with softer italic ingredients and a View more action revealed only after opening a dish.
-- Expandable categories and dish rows keep the menu uncluttered. Search opens matching categories automatically.
+- Cork's turquoise palette has warm light surfaces and a restaurant-black dark mode with restrained green details. Light mode is the default; a guest’s explicit theme choice is saved locally.
+- The official wordmark separates into wireframe components and reassembles smoothly. A tiny "powered by plately" credit types in beside it, with smaller static credits in both footers. Dish rows use small round images, with softer italic ingredients and a View more action revealed only after opening a dish.
+- Expandable categories show dish counts without section ordinals. Search and the duplicate Cork header are removed. Cormorant Garamond display type and Manrope supporting text use one ink color per theme.
 - The story viewer uses native vertical scroll snapping for wheel, trackpad, touch, and keyboard input. End slides wrap to the start. A video loads, starts muted, and loops automatically only on the active dish; dishes without video show a still image. Reduced-motion preferences stop automatic playback and shorten transitions.
 - 23 dishes from the September 2026 menu with prices and weights.
 - Beef tartare portions: 100 g / 72 PLN and 200 g / 86 PLN.
 - Optional chicken, prawns and beef additions for Green Plate and porcini risotto.
-- Polish, English and Ukrainian navigation, search, and accessible dish details.
+- Polish, English and Ukrainian navigation, a Cyrillic УКР language label, and accessible dish details.
 - Preserved all 23 dish posters and eight finished videos. No video plays in the menu list; vertical scrolling or swiping advances through all visible dishes.
 - Used the supplied document's restaurant interior and olive ritual images.
 - The published PDF does not include a dish-by-dish allergen chart. The allergen panel labels EU allergen categories identifiable from named ingredients and directs guests to staff for the complete recipe, sauces, and cross-contact. A kitchen-approved chart is needed before presenting a complete or definitive list.

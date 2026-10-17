@@ -3,7 +3,7 @@ import type { Locale, Localized } from "./types";
 export const LOCALES: { id: Locale; label: string }[] = [
   { id: "pl", label: "PL" },
   { id: "en", label: "EN" },
-  { id: "uk", label: "UK" },
+  { id: "uk", label: "УКР" },
 ];
 
 export const ui: Record<

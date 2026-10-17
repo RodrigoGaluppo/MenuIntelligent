@@ -1,0 +1,18 @@
+.cork-logo-motion{position:relative;isolation:isolate}
+.cork-logo-pieces{position:absolute;inset:0;width:100%;height:100%;overflow:visible;color:var(--ink);animation:cork-pieces-finish 2.65s both}
+.cork-logo-motion .cork-logo-original{animation:cork-original-reveal 2.65s both}
+.cork-logo-piece{animation:cork-piece-arrive 2.65s cubic-bezier(.22,.7,.18,1) both;will-change:transform}
+.cork-piece-fill{animation:cork-fill-arrive 2.65s both}
+.cork-piece-outline{animation:cork-outline-arrive 2.65s both}
+@keyframes cork-piece-arrive{0%,8%{transform:translate(0,0) rotate(0)}34%{transform:translate(var(--piece-x),var(--piece-y)) rotate(var(--piece-rotation))}88%,100%{transform:translate(0,0) rotate(0)}}
+@keyframes cork-fill-arrive{0%,8%{opacity:1}28%,60%{opacity:0}88%,100%{opacity:1}}
+@keyframes cork-outline-arrive{0%{opacity:0}22%,67%{opacity:1}92%,100%{opacity:0}}
+@keyframes cork-original-reveal{0%,91%{opacity:0}100%{opacity:1}}
+@keyframes cork-pieces-finish{0%,91%{opacity:1}100%{opacity:0;visibility:hidden}}
+.plately-credit-animated .plately-caption{clip-path:inset(0 100% 0 0);animation:plately-type 1.5s steps(10,end) 2.4s both}
+.plately-credit-animated .plately-signature{clip-path:inset(0 100% 0 0);animation:plately-type 1.35s steps(9,end) 3.8s both}
+@keyframes plately-type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.menu-entry-motion{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:var(--page);pointer-events:none;animation:menu-entry-finish 3.1s both}
+.menu-entry-logo{width:min(72vw,560px)}
+@keyframes menu-entry-finish{0%,82%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){.cork-logo-pieces,.menu-entry-motion{display:none}.cork-logo-motion .cork-logo-original,.cork-logo-piece,.cork-piece-fill,.cork-piece-outline,.plately-credit-animated .plately-caption,.plately-credit-animated .plately-signature{animation:none;clip-path:none}}

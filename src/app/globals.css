@@ -1,10 +1,9 @@
-:root{--page:#f8f7f2;--surface:#fffefa;--surface-raised:#fff;--ink:#1b3734;--muted:#70827e;--accent:#187a73;--accent-strong:#0c615b;--accent-soft:#e7f2ee;--line:#dce3df;--gold:#b47a46;--header:rgba(248,247,242,.88);--shadow:0 22px 70px rgba(22,59,54,.12);color-scheme:light}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--page:#090b0a;--surface:#111512;--surface-raised:#181e1a;--ink:#f4f2eb;--muted:#aeb9b0;--accent:#91b6a0;--accent-strong:#c1dac9;--accent-soft:#1b2920;--line:#303b32;--gold:#c4a579;--header:rgba(9,11,10,.91);--shadow:0 24px 80px rgba(0,0,0,.48);color-scheme:dark}}
-:root[data-theme=dark]{--page:#090b0a;--surface:#111512;--surface-raised:#181e1a;--ink:#f4f2eb;--muted:#aeb9b0;--accent:#91b6a0;--accent-strong:#c1dac9;--accent-soft:#1b2920;--line:#303b32;--gold:#c4a579;--header:rgba(9,11,10,.91);--shadow:0 24px 80px rgba(0,0,0,.48);color-scheme:dark}
+:root{--page:#f8f7f2;--surface:#fffefa;--surface-raised:#fff;--ink:#1b3734;--muted:var(--ink);--accent:var(--ink);--accent-strong:var(--ink);--accent-soft:#e7f2ee;--line:#dce3df;--gold:var(--ink);--header:rgba(248,247,242,.88);--shadow:0 22px 70px rgba(22,59,54,.12);color-scheme:light}
+:root[data-theme=dark]{--page:#090b0a;--surface:#111512;--surface-raised:#181e1a;--ink:#f4f2eb;--muted:var(--ink);--accent:var(--ink);--accent-strong:var(--ink);--accent-soft:#1b2920;--line:#303b32;--gold:var(--ink);--header:rgba(9,11,10,.91);--shadow:0 24px 80px rgba(0,0,0,.48);color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 html,body{margin:0;min-height:100%;background:var(--page);color:var(--ink)}
-body,button,input{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body,button,input{font-family:"Manrope Variable",sans-serif}
 button{font:inherit;cursor:pointer}
 button,a{-webkit-tap-highlight-color:transparent}
 a{color:inherit;text-decoration:none}
@@ -36,7 +35,6 @@ html:active-view-transition .screen-enter{animation:none}
 .cork-logo{display:block;flex:none}
 .cork-logo img{display:block;width:100%;height:auto}
 .cork-logo-dark{display:none!important}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .cork-logo-light{display:none}:root:not([data-theme=light]) .cork-logo-dark{display:block!important}}
 :root[data-theme=dark] .cork-logo-light{display:none}
 :root[data-theme=dark] .cork-logo-dark{display:block!important}
 .plately-credit{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:max-content;padding-left:16px;border-left:1px solid var(--line);line-height:1}
@@ -62,14 +60,14 @@ html:active-view-transition .screen-enter{animation:none}
 .guest-actions{margin-top:50px;border-top:1px solid var(--line)}
 .guest-action{width:100%;min-height:75px;display:flex;align-items:center;gap:18px;padding:10px 10px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;color:var(--ink);text-align:left;transition:background-color .3s,color .3s,padding .35s cubic-bezier(.22,1,.36,1)}
 .guest-action:hover{padding-inline:17px;background:var(--accent-soft)}
-.guest-action-primary{margin-bottom:8px;padding-inline:16px;border:1px solid var(--accent-strong);border-radius:17px;background:var(--accent-strong);color:var(--page);box-shadow:0 12px 26px rgba(13,85,78,.18)}
-.guest-action-primary:hover{padding-inline:23px;background:var(--accent);color:var(--page)}
+.guest-action-primary{margin-bottom:8px;padding-inline:16px;border:1px solid var(--accent-strong);border-radius:17px;background:var(--accent-soft);color:var(--ink);box-shadow:0 8px 24px rgba(13,85,78,.05)}
+.guest-action-primary:hover{padding-inline:23px;background:var(--surface-raised);color:var(--ink)}
 .action-icon{width:45px;height:45px;display:grid;place-items:center;flex:none;border:1px solid var(--line);border-radius:15px;color:var(--accent)}
 .action-icon svg{width:22px;height:22px}
-.guest-action-primary .action-icon{border-color:rgba(255,255,255,.35);color:var(--page)}
-.action-label{flex:1;font-size:19px;font-weight:500;letter-spacing:-.025em}
+.guest-action-primary .action-icon{border-color:var(--line);color:var(--ink)}
+.action-label{flex:1;font-family:"Cormorant Garamond Variable",Georgia,serif;font-size:27px;font-weight:500;letter-spacing:-.015em}
 .action-trail{width:19px;height:19px;color:var(--accent);transition:transform .35s cubic-bezier(.22,1,.36,1)}
-.guest-action-primary .action-trail{color:var(--page)}
+.guest-action-primary .action-trail{color:var(--ink)}
 .guest-action:hover .action-trail{transform:translate(3px,-3px)}
 .action-trail.is-open{transform:rotate(180deg)}
 .wifi-details{padding:18px 22px;background:var(--surface);border-bottom:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.55}
@@ -82,21 +80,15 @@ html:active-view-transition .screen-enter{animation:none}
 .menu-tools{display:flex;align-items:center;gap:9px;margin-left:auto}
 .menu-tools .language-switch{margin-right:11px}
 .mobile-languages{display:none}
-.search-panel{position:sticky;top:76px;z-index:29;display:flex;align-items:center;gap:14px;padding:12px clamp(24px,5vw,80px);border-bottom:1px solid var(--line);background:var(--surface);animation:search-enter .32s cubic-bezier(.22,1,.36,1) both}
-@keyframes search-enter{from{opacity:0;transform:translateY(-9px)}to{opacity:1;transform:translateY(0)}}
-.search-panel svg{width:20px;height:20px;color:var(--accent)}
-.search-panel input{width:100%;padding:10px 0;border:0;outline:0;background:transparent;color:var(--ink);font-size:16px}
-.search-panel input::placeholder{color:var(--muted)}
 .menu-intro{position:relative;max-width:1110px;margin:auto;padding:clamp(49px,7vw,82px) 30px 36px;border-bottom:1px solid var(--line)}
-.menu-intro h1{margin:12px 0 0;font:400 clamp(57px,8vw,94px)/.95 Georgia,"Times New Roman",serif;letter-spacing:-.06em}
+.menu-intro h1{margin:12px 0 0;font:400 clamp(57px,8vw,94px)/.95 "Cormorant Garamond Variable",Georgia,serif;letter-spacing:-.06em}
 .menu-intro-count{position:absolute;right:30px;bottom:42px;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.15em}
 .menu-sections{max-width:1110px;margin:auto;padding:0 30px}
 .menu-category{scroll-margin-top:96px;border-bottom:1px solid var(--line)}
 .menu-category h2{margin:0}
 .category-trigger{width:100%;min-height:103px;display:flex;align-items:center;gap:24px;padding:15px 0;border:0;background:transparent;color:var(--ink);text-align:left}
-.category-number,.category-count{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.15em}
-.category-number{width:27px}
-.category-name{flex:1;font:400 clamp(27px,3.5vw,41px)/1.1 Georgia,"Times New Roman",serif;letter-spacing:-.035em;transition:color .3s}
+.category-count{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.15em}
+.category-name{flex:1;font:400 clamp(27px,3.5vw,41px)/1.1 "Cormorant Garamond Variable",Georgia,serif;letter-spacing:-.035em;transition:color .3s}
 .category-trigger:hover .category-name,.category-trigger[aria-expanded=true] .category-name{color:var(--accent-strong)}
 .category-chevron{width:24px;height:24px;margin-left:12px;color:var(--accent);transition:transform .48s cubic-bezier(.22,1,.36,1)}
 .category-trigger[aria-expanded=true] .category-chevron{transform:rotate(180deg)}
@@ -112,7 +104,7 @@ html:active-view-transition .screen-enter{animation:none}
 .dish-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.22,1,.36,1)}
 .dish-trigger:hover .dish-media img{transform:scale(1.07)}
 .dish-heading{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0}
-.dish-title{display:block;font:400 clamp(24px,3vw,34px)/1.1 Georgia,"Times New Roman",serif;letter-spacing:-.037em}
+.dish-title{display:block;font:400 clamp(24px,3vw,34px)/1.1 "Cormorant Garamond Variable",Georgia,serif;letter-spacing:-.037em}
 .dish-price{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.08em}
 .dish-chevron{width:23px;height:23px;color:var(--accent);transition:transform .5s cubic-bezier(.22,1,.36,1)}
 .dish-card.is-open .dish-chevron{transform:rotate(180deg)}
@@ -120,7 +112,7 @@ html:active-view-transition .screen-enter{animation:none}
 .dish-card.is-open .dish-reveal{grid-template-rows:1fr;opacity:1}
 .dish-reveal-inner{min-height:0;overflow:hidden}
 .dish-reveal-content{margin-left:119px;padding:0 30px 23px 0}
-.dish-ingredients{max-width:62ch;margin:0;color:var(--muted);font:italic 16px/1.6 Georgia,"Times New Roman",serif;letter-spacing:.005em}
+.dish-ingredients{max-width:62ch;margin:0;color:var(--muted);font:italic 16px/1.6 "Cormorant Garamond Variable",Georgia,serif;letter-spacing:.005em}
 .dish-more{display:inline-flex;align-items:center;gap:12px;min-height:43px;margin-top:16px;padding:0 17px;border:1px solid var(--line);border-radius:14px;background:var(--surface-raised);color:var(--accent-strong);font-size:13px;font-weight:700;transition:transform .3s,background-color .3s,border-color .3s}
 .dish-more:hover{transform:translateY(-2px);background:var(--accent-soft);border-color:var(--accent)}
 .dish-more svg{width:16px;height:16px}
@@ -149,8 +141,8 @@ html:active-view-transition .screen-enter{animation:none}
 .story-count-divider{opacity:.5;margin:0 3px}
 .story-copy{position:absolute;left:clamp(23px,6vw,38px);right:clamp(23px,6vw,38px);bottom:42px;max-height:58%;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.5) transparent}
 .story-kicker{display:block;margin-bottom:11px;color:#abdaca;font-size:10px;font-weight:700;letter-spacing:.17em}
-.story-copy h2{margin:0;color:#fff;font:400 clamp(37px,7.6vw,56px)/1.02 Georgia,"Times New Roman",serif;letter-spacing:-.052em}
-.story-ingredients{max-width:48ch;margin:15px 0 0;color:rgba(255,255,255,.8);font:italic 16px/1.6 Georgia,"Times New Roman",serif}
+.story-copy h2{margin:0;color:#fff;font:400 clamp(37px,7.6vw,56px)/1.02 "Cormorant Garamond Variable",Georgia,serif;letter-spacing:-.052em}
+.story-ingredients{max-width:48ch;margin:15px 0 0;color:rgba(255,255,255,.8);font:italic 16px/1.6 "Cormorant Garamond Variable",Georgia,serif}
 .story-price{display:flex;gap:9px;align-items:baseline;margin:17px 0 0;color:rgba(255,255,255,.78);font-size:13px;letter-spacing:.03em}
 .story-price strong{color:#fff;font-size:17px}
 .story-variants{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
@@ -190,7 +182,7 @@ html:active-view-transition .screen-enter{animation:none}
  .welcome-address{font-size:12px}
  .guest-actions{margin-top:37px}
  .guest-action{min-height:73px;gap:14px}
- .action-label{font-size:17px}
+ .action-label{font-size:25px}
  .welcome-footer{font-size:9px;letter-spacing:.08em}
  .menu-header{min-height:72px;padding:6px 4%;gap:10px}
  .brand-lockup{gap:10px}
@@ -205,14 +197,12 @@ html:active-view-transition .screen-enter{animation:none}
  .desktop-languages{display:none}
  .mobile-languages{position:sticky;top:72px;z-index:29;display:flex;justify-content:center;height:42px;border-bottom:1px solid var(--line);background:var(--header);backdrop-filter:blur(20px)}
  .mobile-languages button{min-width:54px;min-height:38px}
- .search-panel{top:114px;padding:8px 5%}
  .menu-intro{padding:42px 5% 25px}
  .menu-intro h1{font-size:clamp(55px,13vw,78px)}
  .menu-intro-count{right:5%;bottom:31px}
  .menu-sections{padding:0 5%}
  .menu-category{scroll-margin-top:125px}
  .category-trigger{min-height:82px;gap:14px}
- .category-number{width:21px}
  .category-name{font-size:clamp(25px,7vw,34px)}
  .category-chevron{width:22px;height:22px;margin-left:2px}
  .dish-grid{padding-bottom:25px}
@@ -261,3 +251,20 @@ html:active-view-transition .screen-enter{animation:none}
  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
  ::view-transition-old(root),::view-transition-new(root),::view-transition-group(cork-brand){animation-duration:.01ms!important}
 }
+
+/* Quiet attribution complements the restaurant identity at every viewport size. */
+.plately-credit,.brand-hero-row .plately-credit,.brand-lockup .plately-credit{gap:3px;padding-left:10px;letter-spacing:0}
+.plately-credit .plately-caption,.brand-hero-row .plately-caption,.brand-lockup .plately-credit>.plately-caption{font-size:8px;font-weight:400;letter-spacing:.025em}
+.plately-credit strong,.brand-hero-row .plately-credit strong,.brand-lockup .plately-credit strong{font-family:"Manrope Variable",sans-serif;font-size:10px;font-weight:600;letter-spacing:-.04em}
+.plately-credit .plately-mark,.brand-hero-row .plately-mark,.brand-lockup .plately-mark{width:11px;height:11px}
+.plately-signature{gap:3px}
+.menu-footer{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.welcome-footer .plately-credit,.menu-footer .plately-credit{padding-left:0;border-left:0;gap:2px}
+.welcome-footer .plately-caption,.menu-footer .plately-caption{font-size:6px;letter-spacing:.025em}
+.welcome-footer .plately-credit strong,.menu-footer .plately-credit strong{font-size:8px}
+.welcome-footer .plately-mark,.menu-footer .plately-mark{width:8px;height:8px}
+.story-viewer{--ink:#fff}
+.story-slide-top,.story-kicker,.story-ingredients,.story-price,.story-allergens,.story-allergen-heading,.story-allergen-tags li,.story-allergens .story-allergen-note,.story-hint{color:var(--ink)}
+.story-variants button[aria-pressed=true]{background:rgba(255,255,255,.2);color:#fff}
+
+.menu-header>.plately-credit{border:0;padding:0}
