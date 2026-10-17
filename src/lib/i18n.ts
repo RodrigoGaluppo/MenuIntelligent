@@ -1,14 +1,15 @@
 import type { Locale, Localized } from "./types";
 
-export const LOCALES: { id: Locale; label: string; name: string }[] = [
-  { id: "pl", label: "PL", name: "Polski" },
-  { id: "en", label: "EN", name: "English" },
-  { id: "uk", label: "УКР", name: "Українська" },
+export const LOCALES: { id: Locale; label: string }[] = [
+  { id: "pl", label: "PL" },
+  { id: "en", label: "EN" },
+  { id: "uk", label: "UK" },
 ];
 
 export const ui: Record<
   Locale,
   {
+    search: string;
     watchDish: string;
     watchReel: string;
     menu: string;
@@ -35,6 +36,7 @@ export const ui: Record<
   }
 > = {
   pl: {
+    search: "Szukaj dań",
     watchDish: "Obejrzyj danie",
     watchReel: "Reel",
     menu: "Karta",
@@ -49,7 +51,7 @@ export const ui: Record<
     price: "Cena",
     available: "Dostępne",
     unavailable: "Niedostępne",
-    demo: "The Cork — karta wrzesień 2026 · Wrocław",
+    demo: "The Cork R32 — karta wrzesień 2026 · Wrocław",
     admin: "Panel",
     language: "Język",
     googleTranslate: "Google Translate",
@@ -60,6 +62,7 @@ export const ui: Record<
     hours: "Godziny",
   },
   en: {
+    search: "Search dishes",
     watchDish: "Watch dish",
     watchReel: "Reel",
     menu: "Menu",
@@ -74,7 +77,7 @@ export const ui: Record<
     price: "Price",
     available: "Available",
     unavailable: "Unavailable",
-    demo: "The Cork — September 2026 menu · Wrocław",
+    demo: "The Cork R32 — September 2026 menu · Wrocław",
     admin: "Admin",
     language: "Language",
     googleTranslate: "Google Translate",
@@ -85,6 +88,7 @@ export const ui: Record<
     hours: "Hours",
   },
   uk: {
+    search: "Шукати страви",
     watchDish: "Дивитися страву",
     watchReel: "Reel",
     menu: "Меню",
@@ -99,7 +103,7 @@ export const ui: Record<
     price: "Ціна",
     available: "Доступно",
     unavailable: "Недоступно",
-    demo: "The Cork — меню вересень 2026 · Вроцлав",
+    demo: "The Cork R32 — меню вересень 2026 · Вроцлав",
     admin: "Адмін",
     language: "Мова",
     googleTranslate: "Google Translate",
